@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
     private string creditsScene = "CreditsScene";
+    private string optionsScene = "OptionsScene";
 
     public void OnPlayPressed()
     {
@@ -19,7 +20,7 @@ public class MainMenu : MonoBehaviour {
 
     public void OnOptionsPressed()
     {
-        //SceneManager.LoadScene();
+        SceneManager.LoadScene(optionsScene);
     }
 
     public void OnExitPressed()
