@@ -34,7 +34,7 @@ public class LoaderManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene("LoadingScreen");
+        SceneManager.LoadScene("LoadingScreenScene");
         StartCoroutine(AsynchronousLoad(sceneName));
         sceneLoading = sceneName;
     }
