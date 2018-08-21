@@ -42,16 +42,7 @@ public class LoaderManager : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene.name == "Level1" || currentScene.name == "Level2" || currentScene.name == "Level3")
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-    public bool IsNextALevel()
-    {
-        if (sceneLoading == "Level1" || sceneLoading == "Level2" || sceneLoading == "Level3")
+        if (currentScene.name == "Level1")
         {
             return true;
         }
