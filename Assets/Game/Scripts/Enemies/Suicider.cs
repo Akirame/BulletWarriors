@@ -48,7 +48,7 @@ public class Suicider : Enemy {
 		if (GetPlayer()) {
 			Vector3 positionDifference = GetPlayer().transform.position - transform.position;
 			direction = positionDifference.normalized;
-			transform.position += direction * speed * Time.deltaTime;
+			GetComponent<Rigidbody>().velocity = direction * speed * Time.deltaTime;
 			if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= minDistanceAttack) {
 				currentState = STATES.ATTACKING;
 			}

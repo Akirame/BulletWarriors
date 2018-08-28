@@ -23,7 +23,7 @@ public class Shooter : Enemy {
 
 
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		StateController();
 	}
 
@@ -60,14 +60,24 @@ public class Shooter : Enemy {
 	}
 
 	private void ChasePlayer() {
-		if (GetPlayer()) {
-			Vector3 positionDifference = GetPlayer().transform.position - transform.position;
-			direction = positionDifference.normalized;
-			transform.position += direction * speed * Time.deltaTime;
-			if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= minDistanceAttack) {
-				currentState = STATES.SHOOTING;
+
+		RaycastHit hit;
+		Debug.DrawRay(transform.position, transform.forward * minDistanceAttack, Color.red);
+		if (Physics.Raycast(transform.position,transform.forward,out hit, minDistanceAttack)) {
+			if (hit.transform.tag == "Obstacle") {
+				direction = transform.right; // ALGO LOCO, SE MUEVE HACIA SU DERECHA CUANDO ESTA TOSKEADO
+			}
+			else if (hit.transform.tag == "Player") {
+				if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= minDistanceAttack) {
+					currentState = STATES.SHOOTING;
+				}
 			}
 		}
+		else {
+			Vector3 positionDifference = GetPlayer().transform.position - transform.position;
+			direction = positionDifference.normalized;
+		}
+		GetComponent<Rigidbody>().velocity = direction * speed * Time.deltaTime;
 	}
 
 	private void OnTriggerEnter(Collider other) {
