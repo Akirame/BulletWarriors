@@ -12,8 +12,7 @@ public class ShootBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity);
-            go.GetComponent<Rigidbody>().velocity = transform.TransformDirection(0, 0, 25);
-            go.transform.rotation = shootPoint.transform.rotation;
+			go.GetComponent<bulletBehaviour>().SetDirection(shootPoint.transform.forward);
         }
     }
 }

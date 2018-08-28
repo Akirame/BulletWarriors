@@ -29,11 +29,20 @@ public class Explosion : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+		if (other.gameObject.tag == "Player")
         {
-            Vector3 dir = other.transform.position - transform.position;
-            dir = dir.normalized;
-            other.gameObject.GetComponent<Player>().Knockback(dir);
+			other.gameObject.GetComponent<Player>().GetDamage();
         }
+		
+		if (other.gameObject.tag == "Enemy")
+		{
+			other.gameObject.GetComponent<Enemy>().Kill();
+		}
     }
+
+	private void OnCollisionEnter(Collision collision) {
+		if (collision.gameObject.tag == "Enemy") {
+			collision.gameObject.GetComponent<Enemy>().Kill();
+		}
+	}
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public int lives;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -14,9 +16,9 @@ public class Player : MonoBehaviour {
 		
 	}
 
-    public void Knockback(Vector3 direction)
+    public void GetDamage()
     {
-        GetComponent<Rigidbody>().AddForce(direction * -8000);
+		lives--;
     }
 
 }
