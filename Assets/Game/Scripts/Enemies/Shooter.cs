@@ -45,7 +45,7 @@ public class Shooter : Enemy {
 		if (!shooting) {
 			shooting = true;
 			GameObject bullet = Instantiate(bulletPrefab, shootPos.position, Quaternion.identity);
-			bullet.GetComponent<bulletBehaviour>().SetDirection(shootPos.forward);
+			bullet.GetComponent<BulletBehaviour>().SetDirection(shootPos.forward);
 		}
 		else {
 			shootTimer += Time.deltaTime;
@@ -83,7 +83,7 @@ public class Shooter : Enemy {
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bullet") {
 			Kill();
-			other.GetComponent<bulletBehaviour>().Kill();
+			other.GetComponent<BulletBehaviour>().Kill();
 		}
 	}
 

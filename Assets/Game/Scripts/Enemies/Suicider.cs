@@ -58,7 +58,7 @@ public class Suicider : Enemy {
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bullet") {
 			Explode();
-			other.GetComponent<bulletBehaviour>().Kill();
+			other.GetComponent<BulletBehaviour>().Kill();
 		}
 	}
 

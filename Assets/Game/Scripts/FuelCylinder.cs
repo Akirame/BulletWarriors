@@ -19,7 +19,7 @@ public class FuelCylinder : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bullet") {
 			Explode();
-			other.GetComponent<bulletBehaviour>().Kill();
+			other.GetComponent<BulletBehaviour>().Kill();
 		}
 	}
 
