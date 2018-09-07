@@ -27,6 +27,10 @@ public class WeaponBehaviour : MonoBehaviour
         {
             weapons[weaponIndex].Shoot();
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            weapons[weaponIndex].Reload();
+        }
     }
     private void UpdateWeapons()
     {

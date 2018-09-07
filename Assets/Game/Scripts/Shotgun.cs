@@ -8,10 +8,14 @@ public class Shotgun : Gun
     public float inaccurracy = 0.5f;
     public override void Shoot()
     {
-        for (int i = 0; i < pellets; i++)
+        if (CanShoot())
         {
-            GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity);
-            go.GetComponent<BulletBehaviour>().SetDirection((shootPoint.transform.forward + (Random.insideUnitSphere * inaccurracy)));
+            for (int i = 0; i < pellets; i++)
+            {
+                GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity);
+                go.GetComponent<BulletBehaviour>().SetDirection((shootPoint.transform.forward + (Random.insideUnitSphere * inaccurracy)));                
+            }
+            currentAmmo--;
         }
-    }
+    }            
 }
