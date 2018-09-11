@@ -9,8 +9,10 @@ public class MapGenerator : MonoBehaviour {
     public GameObject wall;
     public GameObject[] Tiles;
     private int[,] matrixTiles;
+    private int[] randomEuler;
 
     private void Start() {
+        randomEuler = new int[] { 0, 90, 180, 270 };
         InitMatrix();
         GenerateMap();
         GenerateWalls();
@@ -27,7 +29,7 @@ public class MapGenerator : MonoBehaviour {
         for(int i = 0; i < sizeX; i++) {
             for(int j = 0; j < sizeY; j++) {
                 Vector3 position = new Vector3(sizeTile * j , 0, sizeTile * i);
-                GameObject go = Instantiate(Tiles[matrixTiles[i, j]], position, Quaternion.identity, transform);
+                GameObject go = Instantiate(Tiles[matrixTiles[i, j]], position, Quaternion.Euler(0, randomEuler[Random.Range(0, randomEuler.Length)],0), transform);
             }
         }
     }
