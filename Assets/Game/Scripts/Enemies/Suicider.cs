@@ -46,7 +46,7 @@ public class Suicider : Enemy {
 
 	private void ChasePlayer() {
 		if (GetPlayer()) {
-			Vector3 positionDifference = GetPlayer().transform.position - transform.position;
+			Vector3 positionDifference = GetPlayer().transform.position - transform.position;            
 			direction = positionDifference.normalized;
 			GetComponent<Rigidbody>().velocity = direction * speed * Time.deltaTime;
 			if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= minDistanceAttack) {

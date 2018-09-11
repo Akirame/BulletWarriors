@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour {
-
+    public delegate void EnemyActions(Enemy e);
+    public EnemyActions spawn;
 	public int speed;
 	public float minDistanceAttack;
 
-	private GameObject player;
 
-	private void Awake() {
-		player = GameObject.FindGameObjectWithTag("Player");
+	private void Awake() {		
 		tag = "Enemy";
 	}
 
 	public GameObject GetPlayer() {
-		return player;
+        return Player.GetInstance().gameObject;
 	}
 
 	public virtual void Kill() {
 	}
 
+    private void OnTriggerStay(Collider other) {        
+    }
 }
