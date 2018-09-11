@@ -21,7 +21,7 @@ public class BulletBehaviour : MonoBehaviour
         rig.velocity = speed * direction * Time.deltaTime;
 		lifeTimer += Time.deltaTime;
 		if (lifeTimer >= lifeTime) {
-			Destroy(gameObject);
+            Kill();
 		}
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Gun : MonoBehaviour
 {    
     public Transform shootPoint;
-    public BulletBehaviour bullet;
+    public GameObject bullet;
     public int totalAmmoPerCharger;
     public int chargers;
     protected int currentAmmo;
