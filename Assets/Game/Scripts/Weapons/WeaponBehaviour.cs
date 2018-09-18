@@ -4,32 +4,60 @@ using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour {
     public Gun[] weapons;
+    public Gun firstWeapon;
+    public Gun secondaryWeapon;
+    private Gun currentWeapon;
     private int weaponIndex;
 
-    private void Start() {        
-        ChangeWeapons(0);
+    private void Start() {
+        currentWeapon = firstWeapon;
     }
+
     private void Update() {
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            ChangeWeapons(0);
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
-            ChangeWeapons(1);
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
-            ChangeWeapons(2);        
+        if(Input.GetKeyDown(KeyCode.Q))
+            ChangeWeapons();
 
         if(Input.GetKeyDown(KeyCode.Mouse0)) {
-            weapons[weaponIndex].Shoot();
+            currentWeapon.Shoot();
         }
         if(Input.GetKeyDown(KeyCode.R)) {
-            weapons[weaponIndex].Reload();
+            currentWeapon.Reload();
         }
     }
-    private void ChangeWeapons(int index) {
-        weaponIndex = index;
-        foreach(Gun g in weapons) {
-            g.gameObject.SetActive(false);
+
+    private void ChangeWeapons() {
+        if(firstWeapon.isActiveAndEnabled)
+        {
+            firstWeapon.gameObject.SetActive(false);
+            secondaryWeapon.gameObject.SetActive(true);
+            currentWeapon = secondaryWeapon;
         }
-        weapons[weaponIndex].gameObject.SetActive(true);
+        else
+        {
+            firstWeapon.gameObject.SetActive(true);
+            secondaryWeapon.gameObject.SetActive(false);
+            currentWeapon = firstWeapon;
+        }
     }
+
+    private void SetSecondaryWeapon(int index) {
+        if(secondaryWeapon)
+        {
+            secondaryWeapon.gameObject.SetActive(false);
+        }
+        firstWeapon.gameObject.SetActive(false);
+        secondaryWeapon = weapons[index];
+        secondaryWeapon.gameObject.SetActive(true);
+        currentWeapon = secondaryWeapon;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "WeaponItem")
+        {
+            SetSecondaryWeapon(other.GetComponent<WeaponItem>().GetIndex());
+            Destroy(other.gameObject);
+        }
+    }
+
 }

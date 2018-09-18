@@ -11,6 +11,8 @@ public class WeaponZone : MonoBehaviour {
     private float timerEnable;
     private bool isEnabled = true;
     public Image sprite;
+    public delegate void WeaponZoneActions(WeaponZone wz);
+    public static WeaponZoneActions OnZoneComplete;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,7 @@ public class WeaponZone : MonoBehaviour {
             {
                 isEnabled = false;
                 timerZone = 0;
+                OnZoneComplete(this);
             }
         }
         else

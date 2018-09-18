@@ -1,0 +1,13 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WeaponItem : MonoBehaviour {
+
+    public int weaponIndex;
+
+    public int GetIndex() {
+        return weaponIndex;
+    }
+
+}
