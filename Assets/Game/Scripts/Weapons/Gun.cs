@@ -10,6 +10,8 @@ public abstract class Gun : MonoBehaviour
     public int chargers;
     protected int currentAmmo;
     public abstract void Shoot();
+    public Transform bulletGroup;
+
     private void Start()
     {
         currentAmmo = totalAmmoPerCharger;

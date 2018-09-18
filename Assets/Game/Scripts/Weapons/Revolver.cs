@@ -8,7 +8,7 @@ public class Revolver : Gun
     {
         if (CanShoot())
         {
-            GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity);
+            GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
             go.GetComponent<BulletBehaviour>().SetDirection(shootPoint.transform.forward);
             currentAmmo--;
         }

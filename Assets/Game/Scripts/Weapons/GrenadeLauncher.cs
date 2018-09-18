@@ -9,7 +9,7 @@ public class GrenadeLauncher : Gun {
     }
     public override void Shoot() {
         if(CanShoot()) {
-            currentGrenade = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
+            currentGrenade = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity, bulletGroup);
             currentGrenade.GetComponent<GrenadeBehaviour>().SetDirection(shootPoint.transform.forward);
             currentAmmo--;
         }

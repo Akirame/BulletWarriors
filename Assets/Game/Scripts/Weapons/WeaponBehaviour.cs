@@ -11,6 +11,7 @@ public class WeaponBehaviour : MonoBehaviour {
 
     private void Start() {
         currentWeapon = firstWeapon;
+        secondaryWeapon = null;
     }
 
     private void Update() {
@@ -27,13 +28,13 @@ public class WeaponBehaviour : MonoBehaviour {
     }
 
     private void ChangeWeapons() {
-        if(firstWeapon.isActiveAndEnabled)
+        if(secondaryWeapon && firstWeapon.isActiveAndEnabled)
         {
             firstWeapon.gameObject.SetActive(false);
             secondaryWeapon.gameObject.SetActive(true);
             currentWeapon = secondaryWeapon;
         }
-        else
+        else if (secondaryWeapon)
         {
             firstWeapon.gameObject.SetActive(true);
             secondaryWeapon.gameObject.SetActive(false);
