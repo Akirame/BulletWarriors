@@ -6,9 +6,15 @@ public class CenterZone : MonoBehaviour {
 
     public GameObject[] itemList;
     public Transform itemPosition;
+    private GameObject weaponOnCenter;
 
     private void CreateWeapon(WeaponZone wz) {
-        Instantiate(itemList[Random.Range(0, itemList.Length)], itemPosition.position, Quaternion.identity, transform);
+        if(weaponOnCenter)
+        {
+            Destroy(weaponOnCenter);
+        }
+        int numRandom = Random.Range(0, itemList.Length);
+        weaponOnCenter = Instantiate(itemList[numRandom], itemPosition.position, Quaternion.identity, transform);
     }
 
 	// Use this for initialization
