@@ -32,8 +32,12 @@ public class MapGenerator : MonoBehaviour {
     private void InitMatrix() {
         matrixTiles = new int[sizeX, sizeY];
         for(int i = 0; i < sizeX; i++) {
-            for(int j = 0; j < sizeY; j++) {
-                matrixTiles[i, j] = Random.Range(0, Tiles.Length);
+            for(int j = 0; j < sizeY; j++) { 
+                matrixTiles[i, j] = Random.Range(0, Tiles.Length - 1);
+                if(i == sizeX / 2 && j== sizeY / 2)
+                {
+                    matrixTiles[i, j] = Tiles.Length - 1;
+                }
             }
         }
     }
