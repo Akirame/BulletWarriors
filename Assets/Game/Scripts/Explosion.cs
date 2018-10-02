@@ -8,7 +8,7 @@ public class Explosion : MonoBehaviour {
 
     public float explosionRadius;
     public float explosionAcceleration;
-    public int shakeIntensity = 10;
+    public int shakeIntensity = 20;
 
 
     private void Start()
