@@ -2,11 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class Explosion : MonoBehaviour {
 
     public float explosionRadius;
     public float explosionAcceleration;
+    public int shakeIntensity = 20;
+
+
+    private void Start()
+    {
+        Player player = GameManager.GetInstance().player;
+        float playerDistance = Vector3.Distance(transform.position, player.transform.position);
+        CameraShaker.Instance.ShakeOnce((float)shakeIntensity/playerDistance, 4f, 0.1f, 1f);
+    }
 
     // Update is called once per frame
     void Update() {
