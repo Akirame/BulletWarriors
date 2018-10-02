@@ -30,6 +30,6 @@ public class BulletBehaviour : MonoBehaviour
 	}
 
 	public void Kill() {
-		Destroy(gameObject);
+		Destroy(this.gameObject);
 	}
 }

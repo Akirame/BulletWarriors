@@ -19,7 +19,11 @@ public class GrenadeBehaviour : MonoBehaviour
 
     private void Update() {        
         lifeTimer += Time.deltaTime;
-        if(lifeTimer >= lifeTime) {
+
+        if(transform.localScale.x < 1)
+        transform.localScale = Vector3.one * lifeTimer * 3;
+
+        if (lifeTimer >= lifeTime) {            
             Explode();
         }
     }

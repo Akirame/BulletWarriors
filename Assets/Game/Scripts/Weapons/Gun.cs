@@ -7,7 +7,8 @@ public abstract class Gun : MonoBehaviour
     public Transform shootPoint;
     public GameObject bullet;
     public int totalAmmoPerCharger;
-    public int chargers;
+    public int totalChargers;
+    protected int chargers;
     protected int currentAmmo;
     public abstract void Shoot();
     public Transform bulletGroup;
@@ -15,7 +16,7 @@ public abstract class Gun : MonoBehaviour
 
     private void Start()
     {
-        currentAmmo = totalAmmoPerCharger;
+        ResetAmmo();
     }
     public void Reload()
     {
@@ -31,5 +32,10 @@ public abstract class Gun : MonoBehaviour
             return true;
         else
             return false;
+    }
+    public void ResetAmmo()
+    {
+        currentAmmo = totalAmmoPerCharger;
+        chargers = totalChargers;
     }
 }

@@ -49,6 +49,8 @@ public class WeaponBehaviour : MonoBehaviour {
         }
         firstWeapon.gameObject.SetActive(false);
         secondaryWeapon = weapons[index];
+        firstWeapon.ResetAmmo();
+        secondaryWeapon.ResetAmmo();
         secondaryWeapon.gameObject.SetActive(true);
         currentWeapon = secondaryWeapon;
     }
