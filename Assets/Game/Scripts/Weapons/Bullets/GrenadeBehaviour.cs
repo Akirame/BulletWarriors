@@ -28,6 +28,7 @@ public class GrenadeBehaviour : MonoBehaviour
         if(!exploding) {
             exploding = true;
             Instantiate(explosionPrefab, transform.position, transform.rotation, transform.parent);
+            EZCameraShake.CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 1.0f);
             Destroy(gameObject);
         }
     }
