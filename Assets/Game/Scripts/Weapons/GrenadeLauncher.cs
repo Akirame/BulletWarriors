@@ -12,6 +12,7 @@ public class GrenadeLauncher : Gun {
             currentGrenade = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity, bulletGroup);
             currentGrenade.GetComponent<GrenadeBehaviour>().SetDirection(shootPoint.transform.forward);
             currentAmmo--;
+            muzzleFlash.Play();
         }
     }
     public void SecondaryShoot() {

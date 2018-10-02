@@ -11,6 +11,7 @@ public abstract class Gun : MonoBehaviour
     protected int currentAmmo;
     public abstract void Shoot();
     public Transform bulletGroup;
+    public ParticleSystem muzzleFlash;
 
     private void Start()
     {

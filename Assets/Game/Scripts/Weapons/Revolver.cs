@@ -10,6 +10,7 @@ public class Revolver : Gun
         {
             GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
             go.GetComponent<BulletBehaviour>().SetDirection(shootPoint.transform.forward);
+            muzzleFlash.Play();
             currentAmmo--;
         }
     }

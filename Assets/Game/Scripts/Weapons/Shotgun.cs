@@ -15,6 +15,7 @@ public class Shotgun : Gun
                 GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
                 go.GetComponent<BulletBehaviour>().SetDirection((shootPoint.transform.forward + (Random.insideUnitSphere * inaccurracy)));                
             }
+            muzzleFlash.Play();
             currentAmmo--;
         }
     }            
