@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    public Player player;
-
     #region singleton
     private static GameManager instance;
     public static GameManager GetInstance()
@@ -19,9 +17,11 @@ public class GameManager : MonoBehaviour {
         else
             Destroy(this.gameObject);
     }
-    #endregion
+    #endregion        
+    public Player player;
+    
 
-
+    public float totalTime = 100;    
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        if (totalTime > 0)
+        {
+            totalTime -= Time.deltaTime;
+        }
+
 	}
 }

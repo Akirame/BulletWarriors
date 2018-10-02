@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour {
     public int sizeY;
     private int sizeTile = 20;
     public GameObject wall;
-    public GameObject[] Tiles;
+    public GameObject[] Tiles;    
     private int[,] matrixTiles;
     private int[] randomEuler;
 
@@ -32,12 +32,15 @@ public class MapGenerator : MonoBehaviour {
     private void InitMatrix() {
         matrixTiles = new int[sizeX, sizeY];
         for(int i = 0; i < sizeX; i++) {
-            for(int j = 0; j < sizeY; j++) { 
-                matrixTiles[i, j] = Random.Range(0, Tiles.Length - 1);
+            for(int j = 0; j < sizeY; j++) {
+                int randomNumber = Random.Range(0, Tiles.Length - 2);                
+                matrixTiles[i, j] = randomNumber;
                 if(i == sizeX / 2 && j== sizeY / 2)
                 {
                     matrixTiles[i, j] = Tiles.Length - 1;
                 }
+                if ((i == 0 && j == 0) || (i == sizeX - 1 && j == 0) || (i == 0 && j == sizeY - 1) || (i == sizeX - 1 && j == sizeY - 1))
+                    matrixTiles[i, j] = Tiles.Length - 2;
             }
         }
     }

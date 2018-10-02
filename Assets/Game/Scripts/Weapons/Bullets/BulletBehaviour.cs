@@ -15,7 +15,6 @@ public class BulletBehaviour : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
     }
-
     private void Update()
     {
         rig.velocity = speed * direction * Time.deltaTime;

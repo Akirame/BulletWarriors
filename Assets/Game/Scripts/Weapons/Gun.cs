@@ -8,8 +8,8 @@ public abstract class Gun : MonoBehaviour
     public GameObject bullet;
     public int totalAmmoPerCharger;
     public int totalChargers;
-    protected int chargers;
-    protected int currentAmmo;
+    public int chargers;
+    public int currentAmmo;
     public abstract void Shoot();
     public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
