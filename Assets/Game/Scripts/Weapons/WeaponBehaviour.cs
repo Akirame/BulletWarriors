@@ -14,7 +14,7 @@ public class WeaponBehaviour : MonoBehaviour {
     private void Start() {
         currentWeapon = firstWeapon;
         secondaryWeapon = null;
-        OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+        //OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
     }
 
     private void Update() {

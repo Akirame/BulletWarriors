@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour {
 	public float minDistanceAttack;
 
 
-	private void Awake() {		
+	private void Awake() {
 		tag = "Enemy";
 	}
 
@@ -21,5 +21,10 @@ public class Enemy : MonoBehaviour {
 	}
 
     private void OnTriggerStay(Collider other) {        
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.GetInstance().totalTime += 5;
     }
 }
