@@ -22,8 +22,6 @@ public class LoaderManager : MonoBehaviour
             Destroy(this.gameObject);
     }
     #endregion
-    public delegate void LoaderActions(LoaderManager l);
-    public static LoaderActions LoadComplete;
 
     public float loadingProgress;
     public float timeLoading;
@@ -37,22 +35,6 @@ public class LoaderManager : MonoBehaviour
         SceneManager.LoadScene("LoadingScreenScene");
         StartCoroutine(AsynchronousLoad(sceneName));
         sceneLoading = sceneName;
-    }
-    public bool OnLevel()
-    {
-        currentScene = SceneManager.GetActiveScene();
-
-        if (currentScene.name == "Level1")
-        {
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public string GetNextScene()
-    {
-        return sceneLoading;
     }
     IEnumerator AsynchronousLoad(string scene)
     {
@@ -70,7 +52,6 @@ public class LoaderManager : MonoBehaviour
             // Loading completed
             if (loadingProgress >= 1)
             {
-                LoadComplete(this);
                 ao.allowSceneActivation = true;
             }
 

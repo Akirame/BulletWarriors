@@ -8,15 +8,13 @@ public class UILoadingScreen : MonoBehaviour
 {
     public Text loadingText;
     public Image loadingBar;    
+
     public void Update()
     {
         int loadingVal = (int)(LoaderManager.Get().loadingProgress * 100);        
         loadingText.text = "Loading " + loadingVal;
-        loadingBar.fillAmount = loadingVal / 100;
-        if (loadingVal >= 1)
-            Destroy(this.gameObject);
-        
-    }
+        loadingBar.fillAmount = loadingVal / 100;     
+    }    
     public void SetVisible(bool show)
     {
         gameObject.SetActive(show);
