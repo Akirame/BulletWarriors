@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shotgun : Gun
 {
     public int pellets = 10;
-    public float inaccurracy = 0.5f;
+    public float inaccurracy = 0.2f;
     public override void Shoot()
     {
         if (CanShoot())
