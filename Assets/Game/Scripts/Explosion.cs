@@ -48,13 +48,13 @@ public class Explosion : MonoBehaviour {
 		
 		if (other.gameObject.tag == "Enemy")
 		{
-			other.gameObject.GetComponent<Enemy>().Kill();
+			other.gameObject.GetComponent<Enemy>().PlayerTouched();
 		}
     }
 
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Enemy") {
-			collision.gameObject.GetComponent<Enemy>().Kill();
+			collision.gameObject.GetComponent<Enemy>().PlayerTouched();
 		}
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     public delegate void EnemyActions(Enemy e);
-    public EnemyActions spawn;
+    public static EnemyActions OnDieWithBullet;    
 	public int speed;
 	public float minDistanceAttack;
 
@@ -16,15 +16,13 @@ public class Enemy : MonoBehaviour {
 	public GameObject GetPlayer() {
         return Player.GetInstance().gameObject;
 	}
-
-	public virtual void Kill() {
-	}
-
-    private void OnTriggerStay(Collider other) {        
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.tag == "Player")
+            PlayerTouched();
     }
-
-    private void OnDestroy()
-    {
-        GameManager.GetInstance().totalTime += 5;
+    public virtual void PlayerTouched() {        
+    }
+    public virtual void Kill() {
+        OnDieWithBullet(this);
     }
 }

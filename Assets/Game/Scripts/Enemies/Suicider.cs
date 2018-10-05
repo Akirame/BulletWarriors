@@ -30,6 +30,7 @@ public class Suicider : Enemy {
 				break;
 			case STATES.ATTACKING:
 				Explode();
+                Destroy(this.gameObject);
 				break;
 			default:
 				break;
@@ -39,8 +40,7 @@ public class Suicider : Enemy {
 	private void Explode() {
 		if (!exploding) {
 			exploding = true;
-			Instantiate(explosionPrefab, transform.position, transform.rotation, transform.parent);
-			Destroy(gameObject);
+			Instantiate(explosionPrefab, transform.position, transform.rotation, transform.parent);	            
 		}
 	}
 
@@ -58,12 +58,8 @@ public class Suicider : Enemy {
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bullet") {
 			Explode();
-			other.GetComponent<BulletBehaviour>().Kill();
+            Kill();
+			other.GetComponent<BulletBehaviour>().Kill();            
 		}
 	}
-
-	public override void Kill() {
-		Explode();
-	}
-
 }

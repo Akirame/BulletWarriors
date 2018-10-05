@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour {
 
     private void Start() {
         MapSize = MapGenerator.GetInstance().Size();
+        Enemy.OnDieWithBullet += EnemyKilled;
     }
     private void Update() {
         if(timer < spawnTime) {
@@ -19,7 +20,11 @@ public class Spawner : MonoBehaviour {
         else {
             timer = 0;
             Vector3 spawnPos = new Vector3(Random.Range(0,MapSize.y), 0.3f, Random.Range(0,MapSize.x));
-            GameObject e = Instantiate(spawnList[Random.Range(0, spawnList.Count)], spawnPos, Quaternion.identity, transform);
+            GameObject e = Instantiate(spawnList[Random.Range(0, spawnList.Count)], spawnPos, Quaternion.identity, transform);            
         }
+    }
+    private void EnemyKilled(Enemy e) {
+        Destroy(e.gameObject);
+        GameManager.GetInstance().EnemyDeath();
     }
 }

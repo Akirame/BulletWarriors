@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     #region singleton
+    public delegate void PlayerActions(Player p);
+    public static PlayerActions OnHit;
+
     private static Player instance;
     public static Player GetInstance() {
         return instance;
@@ -19,16 +22,11 @@ public class Player : MonoBehaviour {
 
     public int lives;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.tag == "Enemy") {
+            OnHit(this);
+        }
+    }
     public void GetDamage()
     {
 		lives--;

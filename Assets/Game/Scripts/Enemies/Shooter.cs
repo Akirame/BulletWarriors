@@ -82,12 +82,8 @@ public class Shooter : Enemy {
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.tag == "Bullet") {
-			Kill();
+            Kill();
 			other.GetComponent<BulletBehaviour>().Kill();
 		}
-	}
-
-	public override void Kill() {
-		Destroy(gameObject);
 	}
 }
