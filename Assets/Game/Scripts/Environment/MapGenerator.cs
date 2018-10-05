@@ -63,11 +63,11 @@ public class MapGenerator : MonoBehaviour {
 
         go = Instantiate(wall, transform.position, Quaternion.identity, transform);
         go.transform.localScale = new Vector3(sizeTile * sizeY, sizeTile, 1);
-        go.transform.position = new Vector3(sizeTile * sizeY / 2 - sizeTile / 2, 1, -sizeTile / 2);
+        go.transform.position = new Vector3(sizeTile * sizeY / 2 - sizeTile / 2, 0, -sizeTile / 2);
 
         go = Instantiate(wall, transform.position, Quaternion.identity, transform);
         go.transform.localScale = new Vector3(sizeTile * sizeY, sizeTile, 1);
-        go.transform.position = new Vector3(sizeTile * sizeY / 2 - sizeTile / 2, 1, sizeTile * sizeX - sizeTile / 2);
+        go.transform.position = new Vector3(sizeTile * sizeY / 2 - sizeTile / 2, 0, sizeTile * sizeX - sizeTile / 2);
     }
     public Vector2 Size() {
         return new Vector2(sizeTile * sizeX, sizeTile * sizeY);
