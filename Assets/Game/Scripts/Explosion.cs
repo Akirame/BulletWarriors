@@ -9,13 +9,15 @@ public class Explosion : MonoBehaviour {
     public float explosionRadius;
     public float explosionAcceleration;
     public int shakeIntensity = 20;
+    public AudioClip explosionSound;
 
 
     private void Start()
     {
         Player player = GameManager.GetInstance().player;
         float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-        CameraShaker.Instance.ShakeOnce((float)shakeIntensity/playerDistance, 4f, 0.1f, 1f);
+        CameraShaker.Instance.ShakeOnce((float)shakeIntensity/playerDistance, 4f, 0.1f, 1f);        
+        AudioSource.PlayClipAtPoint(explosionSound, transform.position);        
     }
 
     // Update is called once per frame

@@ -16,6 +16,7 @@ public class Shotgun : Gun
                 go.GetComponent<BulletBehaviour>().SetDirection((shootPoint.transform.forward + (Random.insideUnitSphere * inaccurracy)));
                 go.transform.rotation = shootPoint.transform.rotation;                
             }
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
             muzzleFlash.Play();
             currentAmmo--;
         }

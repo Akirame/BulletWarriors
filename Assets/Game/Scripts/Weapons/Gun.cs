@@ -6,6 +6,7 @@ public abstract class Gun : MonoBehaviour
 {    
     public Transform shootPoint;
     public GameObject bullet;
+    public AudioClip shootSound;
     public int totalAmmoPerCharger;
     public int totalChargers;
     public int chargers;

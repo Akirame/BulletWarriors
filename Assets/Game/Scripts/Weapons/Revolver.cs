@@ -10,6 +10,7 @@ public class Revolver : Gun
         {
             GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
             go.GetComponent<BulletBehaviour>().SetDirection(shootPoint.transform.forward);
+            AudioSource.PlayClipAtPoint(shootSound, transform.position);
             go.transform.rotation = shootPoint.transform.rotation;
             muzzleFlash.Play();
             currentAmmo--;
