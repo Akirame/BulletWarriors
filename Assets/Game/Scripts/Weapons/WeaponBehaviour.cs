@@ -10,6 +10,7 @@ public class WeaponBehaviour : MonoBehaviour {
     public Gun secondaryWeapon;
     private Gun currentWeapon;
     private int weaponIndex;
+    public int damageMultiplier = 1;
 
     private void Start() {
         currentWeapon = firstWeapon;
@@ -23,7 +24,7 @@ public class WeaponBehaviour : MonoBehaviour {
             ChangeWeapons();
 
         if(Input.GetKeyDown(KeyCode.Mouse0)) {
-            currentWeapon.Shoot(1);            
+            currentWeapon.Shoot(damageMultiplier);            
             OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
         }
         if(Input.GetKeyDown(KeyCode.R)) {
@@ -55,8 +56,7 @@ public class WeaponBehaviour : MonoBehaviour {
         }
         firstWeapon.gameObject.SetActive(false);
         secondaryWeapon = weapons[index];
-        firstWeapon.ResetAmmo();
-        secondaryWeapon.ResetAmmo();        
+        ResetWeaponsEquipedAmmo();
         secondaryWeapon.gameObject.SetActive(true);
         currentWeapon = secondaryWeapon;
         OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
@@ -69,4 +69,15 @@ public class WeaponBehaviour : MonoBehaviour {
             Destroy(other.gameObject);
         }
     }
+
+    public void ResetWeaponsEquipedAmmo()
+    {
+        firstWeapon.ResetAmmo();
+        if (secondaryWeapon)
+        {
+            secondaryWeapon.ResetAmmo();
+        }
+        OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+    }
+
 }

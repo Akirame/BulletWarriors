@@ -54,7 +54,7 @@ public class Suicider : Enemy {
 			}
 		}
 	}
-    public override void TakeDamage(int _hit)
+    public override void TakeDamage(float _hit)
     {
         health -= _hit;
         if (health <= 0)

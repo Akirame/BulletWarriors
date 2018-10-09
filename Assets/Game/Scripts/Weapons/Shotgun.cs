@@ -6,7 +6,7 @@ public class Shotgun : Gun
 {
     public int pellets = 10;
     public float inaccurracy = 0.2f;
-    public override void Shoot(int weaponDamage)
+    public override void Shoot(int damageMultiplier)
     {
         if (CanShoot())
         {
@@ -15,7 +15,7 @@ public class Shotgun : Gun
                 GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
                 BulletBehaviour b = go.GetComponent<BulletBehaviour>();
                 b.SetDirection((transform.forward + (Random.insideUnitSphere * inaccurracy)));
-                b.SetDamage(base.weaponDamage + weaponDamage);
+                b.SetDamage(weaponDamage * damageMultiplier);
                 go.transform.rotation = shootPoint.transform.rotation;                
             }
             AudioSource.PlayClipAtPoint(shootSound, transform.position);

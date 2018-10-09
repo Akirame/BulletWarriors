@@ -6,7 +6,7 @@ public class BulletBehaviour : MonoBehaviour
 {
     public float speed;
 	public float lifeTime;
-    public int bulletDamage = 1;
+    public float bulletDamage = 1;
 	private Rigidbody rig;
 	private Vector3 direction;
 	private float lifeTimer;
@@ -41,6 +41,6 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.tag == "Props")
             Kill();
     }
-    public int GetDamage(){ return bulletDamage; }
-    public void SetDamage(int _damage) { bulletDamage = _damage; }
+    public float GetDamage(){ return bulletDamage; }
+    public void SetDamage(float _damage) { bulletDamage = _damage; }
 }
