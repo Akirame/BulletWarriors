@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Revolver : Gun
 {
-    public override void Shoot()
+    public override void Shoot(int additiveDamage)
     {
         if (CanShoot())
         {
             GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
-            go.GetComponent<BulletBehaviour>().SetDirection(shootPoint.transform.forward);
+            BulletBehaviour b = go.GetComponent<BulletBehaviour>();
+            b.SetDirection(shootPoint.transform.forward);
+            b.SetDamage(weaponDamage + additiveDamage);
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
             go.transform.rotation = shootPoint.transform.rotation;
             muzzleFlash.Play();

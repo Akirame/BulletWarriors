@@ -46,7 +46,8 @@ public class Shooter : Enemy {
 			shooting = true;
 			GameObject bullet = Instantiate(bulletPrefab, shootPos.position, Quaternion.identity);
 			bullet.GetComponent<BulletBehaviour>().SetDirection(shootPos.forward);
-		}
+            bullet.transform.rotation = shootPos.transform.rotation;
+        }
 		else {
 			shootTimer += Time.deltaTime;
 			if (shootTimer >= shootTime) {
@@ -78,12 +79,5 @@ public class Shooter : Enemy {
 			direction = positionDifference.normalized;
 		}
 		GetComponent<Rigidbody>().velocity = direction * speed * Time.deltaTime;
-	}
-
-	private void OnTriggerEnter(Collider other) {
-		if (other.tag == "Bullet") {
-            Kill();
-			other.GetComponent<BulletBehaviour>().Kill();
-		}
 	}
 }

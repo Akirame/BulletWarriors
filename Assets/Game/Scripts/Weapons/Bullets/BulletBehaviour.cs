@@ -6,7 +6,7 @@ public class BulletBehaviour : MonoBehaviour
 {
     public float speed;
 	public float lifeTime;
-
+    public int bulletDamage = 1;
 	private Rigidbody rig;
 	private Vector3 direction;
 	private float lifeTimer;
@@ -31,4 +31,16 @@ public class BulletBehaviour : MonoBehaviour
 	public void Kill() {
 		Destroy(this.gameObject);
 	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.GetComponent<Enemy>().TakeDamage(bulletDamage);
+            Kill();
+        }
+        if (other.gameObject.tag == "Props")
+            Kill();
+    }
+    public int GetDamage(){ return bulletDamage; }
+    public void SetDamage(int _damage) { bulletDamage = _damage; }
 }

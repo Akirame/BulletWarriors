@@ -11,9 +11,10 @@ public abstract class Gun : MonoBehaviour
     public int totalChargers;
     public int chargers;
     public int currentAmmo;
-    public abstract void Shoot();
+    public abstract void Shoot(int bulletDamage);
     public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
+    public int weaponDamage;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public abstract class Gun : MonoBehaviour
     }
     public void Reload()
     {
-        if (chargers > 0)
+        if (chargers > 0 && currentAmmo < totalAmmoPerCharger)
         {
             currentAmmo = totalAmmoPerCharger;
             chargers--;
@@ -39,4 +40,5 @@ public abstract class Gun : MonoBehaviour
         currentAmmo = totalAmmoPerCharger;
         chargers = totalChargers;
     }
+    public int GetDamage() { return weaponDamage; }
 }

@@ -28,13 +28,11 @@ public class LoaderManager : MonoBehaviour
     public float minTimeToLoad = 2;
 
     private Scene currentScene;
-    private string sceneLoading;
 
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene("LoadingScreenScene");
-        StartCoroutine(AsynchronousLoad(sceneName));
-        sceneLoading = sceneName;
+        StartCoroutine(AsynchronousLoad(sceneName));        
     }
     IEnumerator AsynchronousLoad(string scene)
     {

@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class UI_Game : MonoBehaviour {
+public class UI_Game : MonoBehaviour
+{
 
     public Text timerText;
-    public Text bulletsText;    
+    public Text bulletsText;
+    public Image energyBar;
+    public BulletTimeBehaviour BTB;
+    private float currentEnergy = 0f;
     private GameManager gm;
     private int timer;
     private int weaponAmmo;
     private int weaponMaxAmmo;
     private int weaponChargers;
 
-	void Start () {
+    void Start()
+    {
         WeaponBehaviour.OnWeaponChange += DrawWeaponsText;
         timer = 0;
         weaponAmmo = 0;
@@ -20,15 +25,22 @@ public class UI_Game : MonoBehaviour {
         weaponChargers = 0;
         gm = GameManager.GetInstance();
         DrawTimerText();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (timer != (int)gm.totalTime)
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        DrawTimerText();
+        DrawEnergyBar();
+    }
+    void DrawEnergyBar()
+    {
+        if (currentEnergy != BTB.energyBar)
         {
-            DrawTimerText();
+            currentEnergy = BTB.energyBar;
+            energyBar.fillAmount = currentEnergy / BTB.maxEnergy;
         }
-	}
+    }
     void DrawWeaponsText(int currentAmmo, int maxAmmoPerCharger, int chargers)
     {
         if (weaponAmmo != currentAmmo || weaponMaxAmmo != maxAmmoPerCharger || weaponChargers != chargers)
@@ -41,7 +53,10 @@ public class UI_Game : MonoBehaviour {
     }
     void DrawTimerText()
     {
-        timer = (int)gm.totalTime;
-        timerText.text = timer.ToString("000");
+        if (timer != (int)gm.totalTime)
+        {
+            timer = (int)gm.totalTime;
+            timerText.text = timer.ToString("000");
+        }
     }
 }

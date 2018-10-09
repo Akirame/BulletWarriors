@@ -12,7 +12,7 @@ public class GrenadeBehaviour : MonoBehaviour
     private Rigidbody rig;
     private Vector3 direction;
     private float lifeTimer;
-    private bool exploding = false;
+    private bool exploding = false;    
     private void Awake() {
         rig = GetComponent<Rigidbody>();
     }

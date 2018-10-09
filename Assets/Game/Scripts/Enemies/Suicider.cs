@@ -54,12 +54,13 @@ public class Suicider : Enemy {
 			}
 		}
 	}
-
-	private void OnTriggerEnter(Collider other) {
-		if (other.tag == "Bullet") {
-			Explode();
+    public override void TakeDamage(int _hit)
+    {
+        health -= _hit;
+        if (health <= 0)
+        {
+            Explode();
             Kill();
-			other.GetComponent<BulletBehaviour>().Kill();            
-		}
-	}
+        }
+    }
 }

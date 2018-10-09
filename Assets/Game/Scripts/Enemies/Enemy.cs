@@ -6,13 +6,13 @@ public class Enemy : MonoBehaviour {
     public delegate void EnemyActions(Enemy e);
     public static EnemyActions OnDieWithBullet;    
 	public int speed;
+    public int health = 3;
 	public float minDistanceAttack;
 
 
 	private void Awake() {
 		tag = "Enemy";
-	}
-
+	}    
 	public GameObject GetPlayer() {
         return Player.GetInstance().gameObject;
 	}
@@ -20,9 +20,16 @@ public class Enemy : MonoBehaviour {
         if(collision.gameObject.tag == "Player")
             PlayerTouched();
     }
-    public virtual void PlayerTouched() {        
+    public virtual void PlayerTouched() {
+        Kill();
     }
     public virtual void Kill() {
         OnDieWithBullet(this);
+    }
+    public virtual void TakeDamage(int _hit)
+    {
+        health -= _hit;
+        if (health <= 0)
+            Kill();
     }
 }
