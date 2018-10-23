@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone : Enemy {
+public class ChaseBehaviour : Enemy {
 
     public float minDistance;
     private Vector3 direction;

@@ -14,11 +14,6 @@ public class ShootBehaviour : MonoBehaviour {
     private float timer;
     private bool canShoot = true;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
 	void Update () {
         if (!canShoot)
@@ -36,12 +31,20 @@ public class ShootBehaviour : MonoBehaviour {
         }
 	}
 
-    private void Shoot()
+    public virtual void Shoot()
     {
-        GameObject b = Instantiate(bullet, firePosition.position, Quaternion.identity, bulletList);
-        BulletBehaviour bb = b.GetComponent<BulletBehaviour>();
-        bb.SetDirection(firePosition.forward);
-        bb.SetDamage(damage);
-        canShoot = false;
+        if (OnFireDistance())
+        {
+            GameObject b = Instantiate(bullet, firePosition.position, Quaternion.identity, bulletList);
+            BulletBehaviour bb = b.GetComponent<BulletBehaviour>();
+            bb.SetDirection(firePosition.forward);
+            bb.SetDamage(damage);
+            canShoot = false;
+        }
+    }
+
+    private bool OnFireDistance()
+    {
+        return Vector3.Distance(transform.position,GameManager.GetInstance().player.transform.position) <= fireDistance;
     }
 }
