@@ -49,7 +49,7 @@ public class Suicider : Enemy {
 			Vector3 positionDifference = GetPlayer().transform.position - transform.position;            
 			direction = positionDifference.normalized;
 			GetComponent<Rigidbody>().velocity = direction * speed * Time.deltaTime;
-			if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= minDistanceAttack) {
+			if (Vector3.Distance(GetPlayer().transform.position, transform.position) <= 0.5 /* NUMERO MAFICO A ELIMINAR*/ ) {
 				currentState = STATES.ATTACKING;
 			}
 		}

@@ -8,8 +8,6 @@ public class Enemy : MonoBehaviour {
     public GameObject powerUp;
 	public int speed;
     public float health = 3;
-	public float minDistanceAttack;
-
 
 	private void Awake() {
 		tag = "Enemy";

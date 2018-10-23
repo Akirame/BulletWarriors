@@ -18,7 +18,8 @@ public class BulletBehaviour : MonoBehaviour
     private void Update()
     {
         rig.velocity = speed * direction * Time.deltaTime;
-		lifeTimer += Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(direction);
+        lifeTimer += Time.deltaTime;
 		if (lifeTimer >= lifeTime) {
             Kill();
 		}
