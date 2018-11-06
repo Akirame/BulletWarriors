@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour {
     public delegate void EnemyActions(Enemy e);
     public static EnemyActions OnDieWithBullet;
     public GameObject powerUp;
-	public int speed;
     public float health = 3;
 
 	private void Awake() {
@@ -35,7 +34,10 @@ public class Enemy : MonoBehaviour {
 
     public void DropPowerUp()
     {
-        Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
+        if (powerUp)
+        {
+            Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
+        }
     }
 
 }

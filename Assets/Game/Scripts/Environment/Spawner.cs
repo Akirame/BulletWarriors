@@ -7,10 +7,8 @@ public class Spawner : MonoBehaviour {
     public List<GameObject> spawnList;
     public int spawnTime = 3;
     private float timer;
-    private Vector2 MapSize;
 
     private void Start() {
-        MapSize = MapGenerator.GetInstance().Size();
         Enemy.OnDieWithBullet += EnemyKilled;
     }
     private void Update() {
@@ -19,8 +17,10 @@ public class Spawner : MonoBehaviour {
         }
         else {
             timer = 0;
-            Vector3 spawnPos = new Vector3(Random.Range(0,MapSize.y), 0.3f, Random.Range(0,MapSize.x));
-            Instantiate(spawnList[Random.Range(0, spawnList.Count)], spawnPos, Quaternion.identity, transform);            
+            GameObject objectSpawned = spawnList[Random.Range(0, spawnList.Count)];
+            Vector3 newPos = transform.position;
+            newPos.y = objectSpawned.transform.position.y;
+            Instantiate(objectSpawned, newPos, Quaternion.identity, transform.parent);
         }
     }
     private void EnemyKilled(Enemy e) {

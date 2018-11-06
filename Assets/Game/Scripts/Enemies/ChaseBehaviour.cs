@@ -7,9 +7,10 @@ public class ChaseBehaviour : Enemy {
     public float minDistance;
     private Vector3 direction;
     private Rigidbody rig;
+    public int speed;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rig = GetComponent<Rigidbody>();
 	}
 	
