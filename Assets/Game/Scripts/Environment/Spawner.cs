@@ -25,6 +25,5 @@ public class Spawner : MonoBehaviour {
     }
     private void EnemyKilled(Enemy e) {
         Destroy(e.gameObject);
-        GameManager.GetInstance().EnemyDeath();
     }
 }
