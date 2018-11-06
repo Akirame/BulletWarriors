@@ -13,7 +13,8 @@ public class DoorController : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
-        DoorTrigger.TriggerOn += DoorTriggerEnter;
+        closeDoorTrigger.TriggerOn += DoorTriggerEnter;
+        openDoorTrigger.TriggerOn += DoorTriggerEnter;
     }
 
     public void DisableDoorCollider()
