@@ -29,6 +29,7 @@ public class ShootBehaviour : MonoBehaviour {
         {
             Shoot();
         }
+        firePosition.LookAt(Player.GetInstance().transform.position);
 	}
 
     public virtual void Shoot()
