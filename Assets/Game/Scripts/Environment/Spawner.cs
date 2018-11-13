@@ -11,16 +11,16 @@ public class Spawner : MonoBehaviour {
     private void Start() {
         Enemy.OnDieWithBullet += EnemyKilled;
     }
+
     private void Update() {
         if(timer < spawnTime) {
             timer+= Time.deltaTime;
         }
         else {
             timer = 0;
-            GameObject objectSpawned = spawnList[Random.Range(0, spawnList.Count)];
-            Vector3 newPos = transform.position;
-            newPos.y = objectSpawned.transform.position.y;
-            Instantiate(objectSpawned, newPos, Quaternion.identity, transform.parent);
+            Instantiate(spawnList[Random.Range(0, spawnList.Count)], transform.position, Quaternion.identity, transform.parent);
+            //Vector3 newPos = transform.position;
+            //newPos.y = objectSpawned.transform.position.y;
         }
     }
     private void EnemyKilled(Enemy e) {
