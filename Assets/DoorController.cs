@@ -4,38 +4,38 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public DoorTrigger openDoorTrigger;
-    public DoorTrigger closeDoorTrigger;
     public BoxCollider doorCollider;
 
     private Animator anim;
+    public bool opened = false;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        closeDoorTrigger.TriggerOn += DoorTriggerEnter;
-        openDoorTrigger.TriggerOn += DoorTriggerEnter;
+        anim = GetComponentInChildren<Animator>();
     }
 
-    public void DisableDoorCollider()
+    private void OnTriggerEnter(Collider other)
     {
-        doorCollider.enabled = false;
-    }
-    public void EnableDoorCollider()
-    {
-        doorCollider.enabled = true;
-    }
-    private void DoorTriggerEnter(DoorTrigger d)
-    {
-        switch (d.type)
+        if (other.tag == "Player")
         {
-            case DoorTrigger.TypeOf.Open:
+            if (!opened)
+            {
+                opened = true;
                 anim.SetTrigger("openDoor");
-                break;
-            case DoorTrigger.TypeOf.Close:
-                anim.SetTrigger("closeDoor");
-                EnableDoorCollider();
-                break;
+            }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (opened)
+            {
+                opened = false;
+                anim.SetTrigger("closeDoor");
+            }
+        }
+    }
+
 }
