@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChaseBehaviour : Enemy {
 
+    public Transform dummyPrefab;
     public float minDistance;
     private Vector3 direction;
     private Rigidbody rig;
@@ -13,9 +14,8 @@ public class ChaseBehaviour : Enemy {
     // Use this for initialization
     void Start () {
         rig = GetComponent<Rigidbody>();
-        dummy = Instantiate(new GameObject());
+        dummy = Instantiate(dummyPrefab.gameObject, transform);
         dummy.name = "DummyObject";
-        dummy.transform.SetParent(this.transform);
 	}
 	
 	// Update is called once per frame

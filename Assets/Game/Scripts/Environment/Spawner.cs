@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
     public List<GameObject> spawnList;
-    public int spawnTime = 3;
+    public float spawnTime = 3;
     private float timer;
 
     private void Start() {
@@ -14,13 +14,12 @@ public class Spawner : MonoBehaviour {
 
     private void Update() {
         if(timer < spawnTime) {
-            timer+= Time.deltaTime;
+            timer += Time.deltaTime;
         }
         else {
             timer = 0;
             Instantiate(spawnList[Random.Range(0, spawnList.Count)], transform.position, Quaternion.identity, transform.parent);
-            //Vector3 newPos = transform.position;
-            //newPos.y = objectSpawned.transform.position.y;
+            Vector3 newPos = transform.position;
         }
     }
     private void EnemyKilled(Enemy e) {
