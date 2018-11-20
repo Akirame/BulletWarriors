@@ -8,14 +8,13 @@ public class Spawner : MonoBehaviour {
     public List<GameObject> spawnList;
     public float maxSpawnTime = 3;
     public float minSpawnTime = 6;
-    private PlayerDetector pd;
+    public PlayerDetector pd;
     private float spawnTime;
     private float timer;
     private bool canSpawn = false;
 
     private void Start() {
         Enemy.OnDieWithBullet += EnemyKilled;
-        pd = GetComponentInChildren<PlayerDetector>();
         GetNewSpawnTime();
     }
 
@@ -35,7 +34,8 @@ public class Spawner : MonoBehaviour {
             else
             {
                 timer = 0;
-                Instantiate(spawnList[UnityEngine.Random.Range(0, spawnList.Count)], transform.position, Quaternion.identity, transform.parent);
+                GameObject enemy = spawnList[UnityEngine.Random.Range(0, spawnList.Count)];
+                Instantiate(enemy, transform.position + new Vector3(0,enemy.transform.position.y,0), Quaternion.identity, transform.parent);
                 Vector3 newPos = transform.position;
                 GetNewSpawnTime();
             }
