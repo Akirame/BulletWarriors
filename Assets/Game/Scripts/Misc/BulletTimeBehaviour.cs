@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTimeBehaviour : MonoBehaviour
 {
     public float energyBar = 100f;
-    public float consumptionFactor = 1f;
+    public float consumptionFactor = 10f;
     private bool consumed = false;
     public float maxEnergy = 100f;
     private void Update()
