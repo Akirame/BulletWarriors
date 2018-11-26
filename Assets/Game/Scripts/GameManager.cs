@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour {
     #endregion        
     public Player player;
     public float totalTime = 100;
+    public bool gameStarted = false;
+
     private void Start()
     {
         player = Player.GetInstance();
@@ -27,9 +29,12 @@ public class GameManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (totalTime > 0)
+        if (gameStarted)
         {
-            totalTime -= Time.deltaTime;
+            if (totalTime > 0)
+            {
+                totalTime -= Time.deltaTime;
+            }
         }
 	}
 }

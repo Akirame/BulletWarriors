@@ -7,7 +7,7 @@ public class SpawnDetector : MonoBehaviour {
     private bool canSpawn = false;
 
     private void OnTriggerStay(Collider other) {
-        canSpawn = false;    
+        canSpawn = false;
     }
     private void OnTriggerExit(Collider other) {
         canSpawn = true;
