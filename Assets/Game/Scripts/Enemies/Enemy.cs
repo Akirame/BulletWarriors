@@ -10,10 +10,6 @@ public class Enemy : MonoBehaviour {
 
 	private void Awake() {
 		tag = "Enemy";
-	}    
-
-	public GameObject GetPlayer() {
-        return Player.GetInstance().gameObject;
 	}
 
     private void OnCollisionEnter(Collision collision) {

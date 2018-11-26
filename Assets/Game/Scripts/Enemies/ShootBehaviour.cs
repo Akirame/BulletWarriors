@@ -44,7 +44,7 @@ public class ShootBehaviour : MonoBehaviour {
         }
     }
 
-    private bool OnFireDistance()
+    public bool OnFireDistance()
     {
         return Vector3.Distance(transform.position,GameManager.GetInstance().player.transform.position) <= fireDistance;
     }

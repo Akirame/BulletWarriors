@@ -6,9 +6,10 @@ public class ChaseBehaviour : Enemy {
 
     public Transform dummyPrefab;
     public float minDistance;
+    public int speed;
+    private PlayerDetector pd;
     private Vector3 direction;
     private Rigidbody rig;
-    public int speed;
     private GameObject dummy;
 
     // Use this for initialization
@@ -16,15 +17,19 @@ public class ChaseBehaviour : Enemy {
         rig = GetComponent<Rigidbody>();
         dummy = Instantiate(dummyPrefab.gameObject, transform);
         dummy.name = "DummyObject";
-	}
+        pd = GetComponentInChildren<PlayerDetector>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        Movement();        
+        if (pd.isPlayerInside)
+        {
+            Movement();
+        }
     }
     private void LateUpdate()
     {
-        dummy.transform.LookAt(GetPlayer().transform.position);
+        dummy.transform.LookAt(GameManager.GetInstance().player.transform.position);
         dummy.transform.position = transform.position;
         Vector3 rotation = dummy.transform.eulerAngles;
         if (rotation.x > 25)
@@ -34,10 +39,11 @@ public class ChaseBehaviour : Enemy {
 
     private void Movement()
     {
-        Vector3 positionDifference = GetPlayer().transform.position - transform.position;
+        Vector3 positionDifference = GameManager.GetInstance().player.transform.position - transform.position;
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, positionDifference.x * 10, transform.eulerAngles.z);        
-        direction = positionDifference.normalized;        
-        if (Vector3.Distance(transform.position, GetPlayer().transform.position) > minDistance)
+        direction = positionDifference.normalized;
+        direction.y = 0;
+        if (Vector3.Distance(transform.position, GameManager.GetInstance().player.transform.position) > minDistance)
         {
             rig.velocity = direction * speed * Time.deltaTime;
         }
@@ -45,9 +51,5 @@ public class ChaseBehaviour : Enemy {
         {
             rig.velocity = Vector3.zero;
         }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawLine(transform.position, GetPlayer().transform.position);
     }
 }
