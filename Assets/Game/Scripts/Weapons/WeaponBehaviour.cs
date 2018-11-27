@@ -24,7 +24,7 @@ public class WeaponBehaviour : MonoBehaviour {
             ChangeWeapons();
 
         if(Input.GetKeyDown(KeyCode.Mouse0)) {
-            currentWeapon.Shoot(damageMultiplier);            
+            currentWeapon.Shoot(damageMultiplier,true);
             OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
         }
         if(Input.GetKeyDown(KeyCode.R)) {

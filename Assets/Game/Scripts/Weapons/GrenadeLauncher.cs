@@ -7,7 +7,7 @@ public class GrenadeLauncher : Gun {
     private void Update() {
         SecondaryShoot();
     }
-    public override void Shoot(int weaponDamage) { 
+    public override void Shoot(int weaponDamage, bool fromPlayer) { 
         if(CanShoot()) {
             
             currentAmmo--;

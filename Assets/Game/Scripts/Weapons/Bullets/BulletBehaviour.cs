@@ -6,7 +6,8 @@ public class BulletBehaviour : MonoBehaviour
 {
     public float speed;
 	public float lifeTime;
-    public float bulletDamage = 1;
+    public int bulletDamage = 1;
+    public bool fromPlayer = false;
 	private Rigidbody rig;
 	private Vector3 direction;
 	private float lifeTimer;
@@ -34,14 +35,19 @@ public class BulletBehaviour : MonoBehaviour
 	}
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && fromPlayer)
         {
             other.GetComponent<Enemy>().TakeDamage(bulletDamage);
             Kill();
         }
         if (other.gameObject.tag == "Props")
             Kill();
+        if (other.tag == "Player" && !fromPlayer)
+        {
+            other.GetComponent<Player>().TakeDamage(bulletDamage);
+        }
     }
     public float GetDamage(){ return bulletDamage; }
-    public void SetDamage(float _damage) { bulletDamage = _damage; }
+    public void SetDamage(int _damage) { bulletDamage = _damage; }
+    public void SetFromPlayer(bool fp) { fromPlayer = fp; }
 }

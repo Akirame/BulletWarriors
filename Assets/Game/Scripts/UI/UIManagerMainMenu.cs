@@ -11,6 +11,8 @@ public class UIManagerMainMenu : MonoBehaviour {
 
     private void Start() {
         EnableCanvas(true, false, false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void PlayPressed()
     {

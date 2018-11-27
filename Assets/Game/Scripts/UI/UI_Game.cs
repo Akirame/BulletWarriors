@@ -8,8 +8,11 @@ public class UI_Game : MonoBehaviour
     public Text timerText;
     public Text bulletsText;
     public Image energyBar;
+    public Image healthBar;
     public BulletTimeBehaviour BTB;
+    public Player player;
     private float currentEnergy = 0f;
+    private float currenLife = 0f;
     private GameManager gm;
     private int timer;
     private int weaponAmmo;
@@ -24,6 +27,7 @@ public class UI_Game : MonoBehaviour
         weaponMaxAmmo = 0;
         weaponChargers = 0;
         gm = GameManager.GetInstance();
+        player = gm.player;
         DrawTimerText();
     }
 
@@ -32,6 +36,7 @@ public class UI_Game : MonoBehaviour
     {
         DrawTimerText();
         DrawEnergyBar();
+        DrawHealthBar();
     }
     void DrawEnergyBar()
     {
@@ -41,6 +46,16 @@ public class UI_Game : MonoBehaviour
             energyBar.fillAmount = currentEnergy / BTB.maxEnergy;
         }
     }
+
+    void DrawHealthBar()
+    {
+        if (currenLife != player.life)
+        {
+            currenLife = player.life;
+            healthBar.fillAmount = currenLife / player.maxLife;
+        }
+    }
+
     void DrawWeaponsText(int currentAmmo, int maxAmmoPerCharger, int chargers)
     {
         if (weaponAmmo != currentAmmo || weaponMaxAmmo != maxAmmoPerCharger || weaponChargers != chargers)

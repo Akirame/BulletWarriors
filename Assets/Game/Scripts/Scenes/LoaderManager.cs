@@ -32,7 +32,7 @@ public class LoaderManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene("LoadingScreenScene");
-        StartCoroutine(AsynchronousLoad(sceneName));        
+        StartCoroutine(AsynchronousLoad(sceneName));
     }
     IEnumerator AsynchronousLoad(string scene)
     {

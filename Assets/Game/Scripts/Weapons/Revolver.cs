@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Revolver : Gun
 {
-    public override void Shoot(int damageMultiplier)
+    public override void Shoot(int damageMultiplier, bool fromPlayer)
     {
         if (CanShoot())
         {
@@ -12,6 +12,7 @@ public class Revolver : Gun
             BulletBehaviour b = go.GetComponent<BulletBehaviour>();
             b.SetDirection(shootPoint.transform.forward);
             b.SetDamage(weaponDamage * damageMultiplier);
+            b.SetFromPlayer(fromPlayer);
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
             go.transform.rotation = shootPoint.transform.rotation;
             muzzleFlash.Play();

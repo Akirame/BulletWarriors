@@ -22,14 +22,12 @@ public class PowerUp : MonoBehaviour {
             {
                 case POWER_TYPE.DAMAGE:
                     wb.damageMultiplier *= 2;
-                    print("MORE DAMAGE");
                     break;
                 case POWER_TYPE.HEALTH:
-                    print("mas vida je");
+                    other.GetComponent<Player>().RestoreLife(25);
                     break;
                 case POWER_TYPE.AMMO:
                     wb.ResetWeaponsEquipedAmmo();
-                    print("MORE AMMO");
                     break;
                 default:
                     break;

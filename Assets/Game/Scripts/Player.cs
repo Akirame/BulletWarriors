@@ -30,8 +30,20 @@ public class Player : MonoBehaviour {
     private bool stuned = false;
     private float stunedTime;
     private float timer;
+    public int life;
+    public int maxLife;
 
-    public int lives;
+    private void Start()
+    {
+        GameManager.GetInstance().player = this;
+        life = maxLife;
+    }
+
+    internal void RestoreLife(int v)
+    {
+        life += v;
+        life = Mathf.Clamp(life, 0, maxLife);
+    }
 
     private void Update()
     {
@@ -66,13 +78,13 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "Enemy") {
-            OnHit(this);
-        }
-    }
-    public void GetDamage()
+
+    public void TakeDamage(int val)
     {
-		lives--;
+        life -= val;
+        if (life <= 0)
+        {
+            GameManager.GetInstance().gameOver = true;
+        }
     }
 }

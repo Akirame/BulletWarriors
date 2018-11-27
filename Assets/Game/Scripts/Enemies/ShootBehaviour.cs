@@ -7,7 +7,7 @@ public class ShootBehaviour : MonoBehaviour {
 
     public float fireDistance;
     public float fireRate;
-    public float damage;
+    public int damage;
     public GameObject bullet;
     public Transform firePosition;
     public Transform bulletList;
@@ -40,6 +40,7 @@ public class ShootBehaviour : MonoBehaviour {
             BulletBehaviour bb = b.GetComponent<BulletBehaviour>();
             bb.SetDirection(firePosition.forward);
             bb.SetDamage(damage);
+            bb.SetFromPlayer(false);
             canShoot = false;
         }
     }

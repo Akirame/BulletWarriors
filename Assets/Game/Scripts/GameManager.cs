@@ -39,10 +39,15 @@ public class GameManager : MonoBehaviour {
                 totalTime -= Time.deltaTime;
             }
 
-            if (totalTime <= 0)
+            if (totalTime <= 0 || gameOver)
             {
                 LoaderManager.Get().LoadScene("MainMenuScene");
             }
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+
+            totalTime = 1;
         }
 	}
 }

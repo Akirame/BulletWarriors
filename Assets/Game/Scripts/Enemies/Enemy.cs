@@ -12,29 +12,25 @@ public class Enemy : MonoBehaviour {
 		tag = "Enemy";
 	}
 
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "Player")
-            PlayerTouched();
-    }
-    public virtual void PlayerTouched() {
-        Kill();
-    }
-    public virtual void Kill() {
-        OnDieWithBullet(this);
-        DropPowerUp();
-    }
-    public virtual void TakeDamage(float _hit)
+    public virtual void TakeDamage(int _hit)
     {
         health -= _hit;
         if (health <= 0)
-            Kill();
+        {
+            DropPowerUp();
+            Destroy(gameObject);
+        }
     }
 
     public void DropPowerUp()
     {
         if (powerUp)
         {
-            Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
+            if (UnityEngine.Random.Range(0f,1f) > 0.5f)
+            {
+                Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
+
+            }
         }
     }
 

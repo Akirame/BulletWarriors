@@ -6,6 +6,7 @@ using EZCameraShake;
 
 public class Explosion : MonoBehaviour {
 
+    public int damage = 20;
     public float explosionRadius;
     public float explosionAcceleration;
     public int shakeIntensity = 20;
@@ -43,18 +44,19 @@ public class Explosion : MonoBehaviour {
     {
 		if (other.gameObject.tag == "Player")
         {
-			other.gameObject.GetComponent<Player>().GetDamage();
+			other.gameObject.GetComponent<Player>().TakeDamage(damage);
         }
 		
 		if (other.gameObject.tag == "Enemy")
 		{
-			other.gameObject.GetComponent<Enemy>().PlayerTouched();
+			other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
 		}
     }
 
 	private void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.tag == "Enemy") {
-			collision.gameObject.GetComponent<Enemy>().PlayerTouched();
-		}
-	}
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+
+        }
+    }
 }
