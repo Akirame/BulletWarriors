@@ -14,7 +14,7 @@ public class UIManagerMainMenu : MonoBehaviour {
     }
     public void PlayPressed()
     {
-        LoaderManager.Get().LoadScene("SampleScene");
+        LoaderManager.Get().LoadScene("GameScene");
     }
     public void CreditsPressed()
     {

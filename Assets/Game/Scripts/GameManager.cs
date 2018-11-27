@@ -19,8 +19,11 @@ public class GameManager : MonoBehaviour {
     }
     #endregion        
     public Player player;
-    public float totalTime = 100;
+    public float totalTime = 300;
     public bool gameStarted = false;
+    public bool gameOver = false;
+    public bool win = false;
+
 
     private void Start()
     {
@@ -34,6 +37,11 @@ public class GameManager : MonoBehaviour {
             if (totalTime > 0)
             {
                 totalTime -= Time.deltaTime;
+            }
+
+            if (totalTime <= 0)
+            {
+                LoaderManager.Get().LoadScene("MainMenuScene");
             }
         }
 	}

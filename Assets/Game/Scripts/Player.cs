@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
     private bool stuned = false;
     private float stunedTime;
     private float timer;
+
     public int lives;
 
     private void Update()
