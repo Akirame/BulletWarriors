@@ -1,16 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletTimeBehaviour : MonoBehaviour
 {
     public float energyBar = 100f;
+    public float maxEnergy = 100f;
     public float consumptionFactor = 10f;
     private bool consumed = false;
-    public float maxEnergy = 100f;
+    private bool activated = false;
     private void Update()
     {
-        if (Input.GetKey(KeyCode.F) && energyBar > 0f && !consumed)
+        if (activated && energyBar > 0f && !consumed)
         {
             Time.timeScale = 0.3f;
             Time.fixedDeltaTime = Time.timeScale * .02f;
@@ -20,6 +22,7 @@ public class BulletTimeBehaviour : MonoBehaviour
         }
         else
         {
+            activated = false;
             Time.timeScale = 1f;
             if (energyBar < maxEnergy)
             {
@@ -29,7 +32,13 @@ public class BulletTimeBehaviour : MonoBehaviour
                     energyBar = 100f;
                     consumed = false;
                 }
-            }            
+            }
         }
     }
+
+    internal void SetConsumeEnabled(bool pressed)
+    {
+        activated = pressed;
+    }
+
 }

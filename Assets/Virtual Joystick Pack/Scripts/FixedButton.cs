@@ -15,13 +15,13 @@ public class FixedButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     // Update is called once per frame
     void LateUpdate()
     {
-        if(Pressed)            
+        if(Pressed)
             Pressed = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Pressed = true;        
+        Pressed = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
