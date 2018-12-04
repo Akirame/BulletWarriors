@@ -24,11 +24,13 @@ public class MobileControls : MonoBehaviour {
         if (timeButton.Pressed)
         {
             btb.SetConsumeEnabled(true);
+            timeButton.Pressed = false;
         }
-
         fps.m_MouseLook.lookAxis = touchField.TouchDist;
         weapons.buttonReload = reloadButton.Pressed;
         weapons.buttonShoot = shootButton.Pressed;
+        reloadButton.Pressed = false;
+        shootButton.Pressed = false;
     }
 
 }
