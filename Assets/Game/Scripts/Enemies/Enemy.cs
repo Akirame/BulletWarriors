@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour {
     public static EnemyActions OnDieWithBullet;
     public GameObject powerUp;
     public float health = 3;
+    private bool powerUpDroped = false;
 
 	private void Awake() {
 		tag = "Enemy";
@@ -26,10 +27,10 @@ public class Enemy : MonoBehaviour {
     {
         if (powerUp)
         {
-            if (UnityEngine.Random.Range(0f,1f) > 0.5f)
+            if (UnityEngine.Random.Range(0f,1f) > 0.3f && !powerUpDroped)
             {
+                powerUpDroped = true;
                 Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
-
             }
         }
     }
