@@ -6,7 +6,7 @@ public class BulletBehaviour : MonoBehaviour
 {
     public float speed;
 	public float lifeTime;
-    public int bulletDamage = 1;
+    public float bulletDamage = 1;
     public bool fromPlayer = false;
 	private Rigidbody rig;
 	private Vector3 direction;
@@ -48,6 +48,6 @@ public class BulletBehaviour : MonoBehaviour
         }
     }
     public float GetDamage(){ return bulletDamage; }
-    public void SetDamage(int _damage) { bulletDamage = _damage; }
+    public void SetDamage(float _damage) { bulletDamage = _damage; }
     public void SetFromPlayer(bool fp) { fromPlayer = fp; }
 }

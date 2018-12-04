@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
 		tag = "Enemy";
 	}
 
-    public virtual void TakeDamage(int _hit)
+    public virtual void TakeDamage(float _hit)
     {
         health -= _hit;
         if (health <= 0)

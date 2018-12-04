@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Revolver : Gun
 {
-    public override void Shoot(int damageMultiplier, bool fromPlayer)
+    public override void Shoot(float damageMultiplier, bool fromPlayer)
     {
         if (CanShoot())
         {

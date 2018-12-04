@@ -11,7 +11,7 @@ public abstract class Gun : MonoBehaviour
     public int totalChargers;
     public int chargers;
     public int currentAmmo;
-    public abstract void Shoot(int bulletDamage, bool fromPlayer);
+    public abstract void Shoot(float bulletDamage, bool fromPlayer);
     public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
     public int weaponDamage;

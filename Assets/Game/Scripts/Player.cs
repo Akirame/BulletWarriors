@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
     private bool stuned = false;
     private float stunedTime;
     private float timer;
-    public int life;
+    public float life;
     public int maxLife;
 
     private void Start()
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
     }
 
 
-    public void TakeDamage(int val)
+    public void TakeDamage(float val)
     {
         life -= val;
         if (life <= 0)

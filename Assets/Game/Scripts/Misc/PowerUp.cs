@@ -21,7 +21,7 @@ public class PowerUp : MonoBehaviour {
             switch (type)
             {
                 case POWER_TYPE.DAMAGE:
-                    wb.damageMultiplier *= 2;
+                    wb.damageMultiplier *= 1.1f;
                     break;
                 case POWER_TYPE.HEALTH:
                     other.GetComponent<Player>().RestoreLife(25);

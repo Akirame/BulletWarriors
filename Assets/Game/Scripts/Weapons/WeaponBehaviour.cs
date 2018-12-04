@@ -10,7 +10,7 @@ public class WeaponBehaviour : MonoBehaviour {
     public Gun secondaryWeapon;
     private Gun currentWeapon;
     private int weaponIndex;
-    public int damageMultiplier = 1;
+    public float damageMultiplier = 1;
     public bool buttonReload = false;
     public bool buttonShoot = false;
     private void Start() {
@@ -24,7 +24,7 @@ public class WeaponBehaviour : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Q))
             ChangeWeapons();
 
-        if(buttonShoot) {            
+        if(buttonShoot) {
             currentWeapon.Shoot(damageMultiplier,true);
             OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
         }
