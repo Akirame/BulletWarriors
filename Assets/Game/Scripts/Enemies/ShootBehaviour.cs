@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ShootBehaviour : MonoBehaviour {
 
     public float fireDistance;
-    public float fireRate;
+    public float minFireTime;
+    public float maxFireTime;
+    private float fireTime;
     public int damage;
     public GameObject bullet;
     public Transform firePosition;
@@ -14,12 +17,17 @@ public class ShootBehaviour : MonoBehaviour {
     private float timer;
     private bool canShoot = true;
 
-	// Update is called once per frame
-	void Update () {
+    private void Start()
+    {
+        fireTime = Random.Range(minFireTime, maxFireTime);
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (!canShoot)
         {
             timer += Time.deltaTime;
-            if (timer >= fireRate)
+            if (timer >= fireTime)
             {
                 canShoot = true;
                 timer = 0;
@@ -42,6 +50,7 @@ public class ShootBehaviour : MonoBehaviour {
             bb.SetDamage(damage);
             bb.SetFromPlayer(false);
             canShoot = false;
+            fireTime = Random.Range(minFireTime, maxFireTime);
         }
     }
 
