@@ -8,22 +8,31 @@ public class ChaseBehaviour : Enemy {
     public int speed;
     private PlayerDetector pd;
     private Vector3 direction;
-    private Rigidbody rig;
+    public Rigidbody rig;
     private Player player;
-    private Vector3 velocity;
+    public Vector3 velocity;
+    private bool hasPatrol;
 
     // Use this for initialization
     void Start () {
         rig = GetComponent<Rigidbody>();
         pd = GetComponentInChildren<PlayerDetector>();
         player = GameManager.GetInstance().player;
+        hasPatrol = GetComponent<PatrolBehavior>() != null;
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (pd.isPlayerInside)
         {
+            if (hasPatrol)
+                GetComponent<PatrolBehavior>().enabled = false;
             Movement();
+        }
+        else
+        {
+            if (hasPatrol)
+                GetComponent<PatrolBehavior>().enabled = true;
         }
     }
 
