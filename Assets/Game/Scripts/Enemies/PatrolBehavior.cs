@@ -8,7 +8,9 @@ public class PatrolBehavior : MonoBehaviour {
     public Transform[] patrolPoints;
     public Transform nextPoint;
     public int idxPoint = -1;
+    public float minDistance = 1;
     private ChaseBehaviour cb;
+    public float rotationSpeed = 5;
 
     private void Start()
     {
@@ -25,6 +27,9 @@ public class PatrolBehavior : MonoBehaviour {
                 Vector3 direction = (nextPoint.position - transform.position).normalized;
                 cb.velocity = direction * cb.speed * Time.deltaTime;
                 cb.rig.velocity = cb.velocity;
+                float step = rotationSpeed * Time.deltaTime;
+                Vector3 rotDir = Vector3.RotateTowards(transform.forward, direction, step, 0.0f);
+                transform.rotation = Quaternion.LookRotation(new Vector3(rotDir.x, 0, rotDir.z));
             }
             else
             {
@@ -35,7 +40,7 @@ public class PatrolBehavior : MonoBehaviour {
 
     private bool PointReached()
     {
-        return Vector3.Distance(transform.position, nextPoint.position) < 1;
+        return Vector3.Distance(transform.position, nextPoint.position) < minDistance;
     }
 
     private void GetNextPoint()
@@ -46,7 +51,6 @@ public class PatrolBehavior : MonoBehaviour {
             if (idxPoint > patrolPoints.Length)
                 idxPoint = 0;
             nextPoint = patrolPoints[idxPoint];
-            transform.LookAt(new Vector3(nextPoint.position.x, transform.position.y, nextPoint.position.z));
         }
     }
 }
