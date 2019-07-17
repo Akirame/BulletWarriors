@@ -48,8 +48,7 @@ public class PatrolBehavior : MonoBehaviour {
         if (patrolPoints.Length > 0)
         {
             idxPoint++;
-            if (idxPoint > patrolPoints.Length)
-                idxPoint = 0;
+            idxPoint = idxPoint % patrolPoints.Length;
             nextPoint = patrolPoints[idxPoint];
         }
     }
