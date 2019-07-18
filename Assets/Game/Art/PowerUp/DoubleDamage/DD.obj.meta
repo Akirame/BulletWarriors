@@ -1,60 +1,23 @@
 fileFormatVersion: 2
-guid: 5ea3964a4d769124daad6e70966c3b0e
+guid: 30aac46016aaf8640ade67a4cc8ca881
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cube.001
-    100004: Cylinder.000
-    100006: Cylinder.001
-    100008: Cylinder.002
-    100010: Cylinder.004
-    100012: Cylinder.005
-    100014: Cylinder.006
-    100016: Cylinder.007
-    100018: Lamp
-    100020: //RootNode
-    400000: Camera
-    400002: Cube.001
-    400004: Cylinder.000
-    400006: Cylinder.001
-    400008: Cylinder.002
-    400010: Cylinder.004
-    400012: Cylinder.005
-    400014: Cylinder.006
-    400016: Cylinder.007
-    400018: Lamp
-    400020: //RootNode
-    2000000: Camera
-    2100000: Mi 28
-    2100002: Material.004
-    2300000: Cube.001
-    2300002: Cylinder.000
-    2300004: Cylinder.001
-    2300006: Cylinder.002
-    2300008: Cylinder.004
-    2300010: Cylinder.005
-    2300012: Cylinder.006
-    2300014: Cylinder.007
-    3300000: Cube.001
-    3300002: Cylinder.000
-    3300004: Cylinder.001
-    3300006: Cylinder.002
-    3300008: Cylinder.004
-    3300010: Cylinder.005
-    3300012: Cylinder.006
-    3300014: Cylinder.007
-    4300000: Cylinder.007
-    4300002: Cube.001
-    4300004: Cylinder.006
-    4300006: Cylinder.005
-    4300008: Cylinder.004
-    4300010: Cylinder.000
-    4300012: Cylinder.002
-    4300014: Cylinder.001
-    10800000: Lamp
+    100000: Speed
+    100002: //RootNode
+    400000: Speed
+    400002: //RootNode
+    2100000: SpeedMat
+    2300000: Speed
+    3300000: Speed
+    4300000: Speed
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SpeedMat
+    second: {fileID: 2100000, guid: dfbf6b4b9abc60a488708c103959575e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

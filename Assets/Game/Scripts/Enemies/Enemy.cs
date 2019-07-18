@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     public delegate void EnemyActions(Enemy e);
     public static EnemyActions OnDieWithBullet;
-    public GameObject powerUp;
+    public GameObject[] powerUps;
     public float health = 3;
     private bool powerUpDroped = false;
 
@@ -25,12 +25,12 @@ public class Enemy : MonoBehaviour {
 
     public void DropPowerUp()
     {
-        if (powerUp)
+        if (powerUps.Length > 0)
         {
-            if (UnityEngine.Random.Range(0f,1f) > 0.3f && !powerUpDroped)
+            if (UnityEngine.Random.Range(0f,1f) > 0.45f && !powerUpDroped)
             {
                 powerUpDroped = true;
-                Instantiate(powerUp, transform.position, Quaternion.identity, transform.parent);
+                Instantiate(powerUps[UnityEngine.Random.Range(0,powerUps.Length)], transform.position, Quaternion.identity, transform.parent);
             }
         }
     }

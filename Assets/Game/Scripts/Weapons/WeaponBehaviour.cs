@@ -13,6 +13,10 @@ public class WeaponBehaviour : MonoBehaviour {
     public float damageMultiplier = 1;
     public bool buttonReload = false;
     public bool buttonShoot = false;
+    public float doubleDamageTime = 5;
+    private float doubleDamageTimer = 0;
+    private bool hasDoubleDamage = false;
+
     private void Start() {
         currentWeapon = firstWeapon;
         secondaryWeapon = null;
@@ -31,7 +35,18 @@ public class WeaponBehaviour : MonoBehaviour {
         if(buttonReload) {            
             currentWeapon.Reload();
             OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
-        }        
+        }
+
+        if (hasDoubleDamage)
+        {
+            doubleDamageTimer += Time.deltaTime;
+            if (doubleDamageTimer > doubleDamageTime)
+            {
+                doubleDamageTimer = 0;
+                hasDoubleDamage = false;
+                damageMultiplier = 1;
+            }
+        }
     }
 
     private void ChangeWeapons() {
@@ -79,6 +94,13 @@ public class WeaponBehaviour : MonoBehaviour {
             secondaryWeapon.ResetAmmo();
         }
         OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+    }
+
+    public void DoubleDamage()
+    {
+        damageMultiplier = 2;
+        hasDoubleDamage = true;
+        doubleDamageTimer = 0;
     }
 
 }
