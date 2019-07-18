@@ -8,13 +8,14 @@ public class Revolver : Gun
     {
         if (CanShoot())
         {
-            GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
-            BulletBehaviour b = go.GetComponent<BulletBehaviour>();
-            b.SetDirection(shootPoint.transform.forward);
-            b.SetDamage(weaponDamage * damageMultiplier);
-            b.SetFromPlayer(fromPlayer);
+            var bullet = bp.Get();
+            if (bullet == null)
+            {
+                return;
+            }
+            bullet.Spawn(shootPoint.position, shootPoint.forward, weaponDamage * damageMultiplier, fromPlayer);
+            bp.AddBullet(bullet);
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
-            go.transform.rotation = shootPoint.transform.rotation;
             muzzleFlash.Play();
             currentAmmo--;
         }

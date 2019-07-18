@@ -15,6 +15,7 @@ public abstract class Gun : MonoBehaviour
     public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
     public int weaponDamage;
+    public BulletPool bp;
 
     private void Start()
     {

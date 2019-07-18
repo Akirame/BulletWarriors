@@ -12,7 +12,9 @@ public class BulletBehaviour : MonoBehaviour
 	private Vector3 direction;
 	private float lifeTimer;
 
-	private void Awake()
+    public bool IsAlive = false;
+
+    private void Awake()
     {
         rig = GetComponent<Rigidbody>();
     }
@@ -31,7 +33,7 @@ public class BulletBehaviour : MonoBehaviour
 	}
 
 	public void Kill() {
-		Destroy(this.gameObject);
+        IsAlive = false;
 	}
     private void OnTriggerEnter(Collider other)
     {
@@ -47,6 +49,16 @@ public class BulletBehaviour : MonoBehaviour
             other.GetComponent<Player>().TakeDamage(bulletDamage);
         }
     }
+
+    public void Spawn(Vector3 pos, Vector3 dir, float damage, bool _fromPlayer)
+    {
+        transform.position = pos;
+        direction = dir;
+        bulletDamage = damage;
+        fromPlayer = _fromPlayer;
+        IsAlive = true;
+    }
+
     public float GetDamage(){ return bulletDamage; }
     public void SetDamage(float _damage) { bulletDamage = _damage; }
     public void SetFromPlayer(bool fp) { fromPlayer = fp; }
