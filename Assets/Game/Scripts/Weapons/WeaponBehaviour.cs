@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour {
     public delegate void WeaponsChanges(int currentAmmo, int totalAmmo);
     public static WeaponsChanges OnWeaponChange;
-    public Gun[] weapons;
+    public Gun[] weaponList;
     public Gun firstWeapon;
     public Gun secondaryWeapon;
     private Gun currentWeapon;
@@ -18,20 +19,21 @@ public class WeaponBehaviour : MonoBehaviour {
     private bool hasDoubleDamage = false;
 
     private void Start() {
-        currentWeapon = firstWeapon;
+        currentWeapon = null;
+        firstWeapon = null;
         secondaryWeapon = null;
     }
 
     private void Update() {
 
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q) && firstWeapon && secondaryWeapon)
             ChangeWeapons();
 
-        if(buttonShoot) {
+        if(buttonShoot && currentWeapon) {
             currentWeapon.Shoot(damageMultiplier,true);
             OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
-        if(buttonReload) {
+        if(buttonReload && currentWeapon) {
             currentWeapon.Reload();
             OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
@@ -60,27 +62,35 @@ public class WeaponBehaviour : MonoBehaviour {
             firstWeapon.gameObject.SetActive(true);
             secondaryWeapon.gameObject.SetActive(false);
             currentWeapon = firstWeapon;
-        }        
-        OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
-    }
-
-    private void SetSecondaryWeapon(int index) {
-        if(secondaryWeapon)
-        {
-            secondaryWeapon.gameObject.SetActive(false);
         }
-        firstWeapon.gameObject.SetActive(false);
-        secondaryWeapon = weapons[index];
-        secondaryWeapon.gameObject.SetActive(true);
-        currentWeapon = secondaryWeapon;
         OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "WeaponItem")
         {
-            SetSecondaryWeapon(other.GetComponent<WeaponItem>().GetIndex());
-            Destroy(other.gameObject);
+            SetWeapon(other.GetComponent<WeaponItem>().GetIndex());
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    private void SetWeapon(int v)
+    {
+        switch (v)
+        {
+            case 0:
+                firstWeapon = weaponList[v];
+                currentWeapon = firstWeapon;
+                firstWeapon.gameObject.SetActive(true);
+                GetComponent<MobileControls>().ActivateAllFunctions();
+                UI_Game.GetInstance().ActivateAllUI();
+                break;
+            case 1:
+                secondaryWeapon = weaponList[v];
+                ChangeWeapons();
+                break;
+            default:
+                break;
         }
     }
 

@@ -60,6 +60,7 @@ public class BulletBehaviour : MonoBehaviour
 
     public void Spawn(Vector3 pos, Vector3 dir, float damage, bool _fromPlayer)
     {
+        rig.velocity = Vector3.zero;
         transform.position = pos;
         direction = dir;
         bulletDamage = damage;

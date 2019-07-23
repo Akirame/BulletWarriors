@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class MobileControls : MonoBehaviour {
     private UnityStandardAssets.Characters.FirstPerson.FirstPersonController fps;
     private WeaponBehaviour weapons;
     private BulletTimeBehaviour btb;
+
     private void Start()
     {
         fps = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
@@ -33,4 +35,9 @@ public class MobileControls : MonoBehaviour {
         shootButton.Pressed = false;
     }
 
+    internal void ActivateAllFunctions()
+    {
+        shootButton.gameObject.SetActive(true);
+        reloadButton.gameObject.SetActive(true);
+    }
 }

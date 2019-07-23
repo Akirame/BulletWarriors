@@ -6,6 +6,23 @@ using UnityEngine.UI;
 public class UI_Game : MonoBehaviour
 {
 
+
+    #region singleton
+    private static UI_Game instance;
+    public static UI_Game GetInstance()
+    {
+        return instance;
+    }
+    private void Awake()
+    {
+        if (!instance)
+            instance = this;
+        else
+            Destroy(this.gameObject);
+    }
+    #endregion
+
+
     public Text timerText;
     public Text currentAmmoText;
     public Text totalAmmoText;
@@ -91,4 +108,11 @@ public class UI_Game : MonoBehaviour
             timerText.text = gameTimer.ToString("000");
         }
     }
+
+    public void ActivateAllUI()
+    {
+        currentAmmoText.gameObject.SetActive(true);
+        totalAmmoText.gameObject.SetActive(true);
+    }
+
 }

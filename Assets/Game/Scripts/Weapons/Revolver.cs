@@ -8,6 +8,8 @@ public class Revolver : Gun
     {
         if (CanShoot())
         {
+            canShoot = false;
+            anim.SetTrigger("Fire");
             var bullet = bp.Get();
             if (bullet == null)
             {

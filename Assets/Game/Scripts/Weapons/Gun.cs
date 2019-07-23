@@ -14,11 +14,19 @@ public abstract class Gun : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public int weaponDamage;
     public BulletPool bp;
+    protected Animator anim;
+    protected bool canShoot = true;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public void Reload()
     {
         if (currentAmmoOnCharger < clipSize && totalAmmo > 0)
         {
+            canShoot = false;
             if (totalAmmo > clipSize)
             {
                 totalAmmo -= clipSize;
@@ -29,18 +37,22 @@ public abstract class Gun : MonoBehaviour
                 currentAmmoOnCharger = totalAmmo;
                 totalAmmo = 0;
             }
+            anim.SetTrigger("Reload");
         }
     }
     public bool CanShoot()
     {
-        if (currentAmmoOnCharger > 0)
-            return true;
-        else
-            return false;
+        return canShoot && currentAmmoOnCharger > 0;
     }
+
     public void AddAmmo(int count)
     {
         totalAmmo += count;
+    }
+
+    public void SetCanShoot(int val)
+    {
+        canShoot = val == 1; // MUY BUEN TRABAJO UNITY EN NO PODER CALLEAR FUNCIONES CON PARAMETRO BOOLEANO EN LAS ANIMACIONES!!!!!!!11111
     }
 
     public float GetDamage() { return weaponDamage; }
