@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,29 +7,44 @@ public class UI_Game : MonoBehaviour
 {
 
     public Text timerText;
-    public Text bulletsText;
+    public Text currentAmmoText;
+    public Text totalAmmoText;
     public Image energyBar;
     public Image healthBar;
+    public Image damageImage;
+    public Image stunedImage;
     public BulletTimeBehaviour BTB;
     public Player player;
     private float currentEnergy = 0f;
     private float currenLife = 0f;
     private GameManager gm;
-    private int timer;
+    private int gameTimer;
     private int weaponAmmo;
-    private int weaponMaxAmmo;
-    private int weaponChargers;
+    private int weaponTotalAmmo;
+    private Animator anim;
 
     void Start()
     {
         WeaponBehaviour.OnWeaponChange += DrawWeaponsText;
-        timer = 0;
+        Player.OnHit += PlayerDamaged;
+        Player.OnStuned += PlayerStuned;
+        gameTimer = 0;
         weaponAmmo = 0;
-        weaponMaxAmmo = 0;
-        weaponChargers = 0;
+        weaponTotalAmmo = 0;
         gm = GameManager.GetInstance();
         player = gm.player;
         DrawTimerText();
+        anim = GetComponent<Animator>();
+    }
+
+    private void PlayerStuned(float time)
+    {
+        anim.SetTrigger("Stuned");
+    }
+
+    private void PlayerDamaged(Player p)
+    {
+        anim.SetTrigger("Damaged");
     }
 
     // Update is called once per frame
@@ -38,6 +54,7 @@ public class UI_Game : MonoBehaviour
         DrawEnergyBar();
         DrawHealthBar();
     }
+
     void DrawEnergyBar()
     {
         if (currentEnergy != BTB.energyBar)
@@ -56,22 +73,22 @@ public class UI_Game : MonoBehaviour
         }
     }
 
-    void DrawWeaponsText(int currentAmmo, int maxAmmoPerCharger, int chargers)
+    void DrawWeaponsText(int ammoOnCharger, int totalAmmo)
     {
-        if (weaponAmmo != currentAmmo || weaponMaxAmmo != maxAmmoPerCharger || weaponChargers != chargers)
+        if (weaponAmmo != ammoOnCharger || weaponTotalAmmo != totalAmmo)
         {
-            weaponAmmo = currentAmmo;
-            weaponMaxAmmo = maxAmmoPerCharger;
-            weaponChargers = chargers;
-            bulletsText.text = currentAmmo + "/" + maxAmmoPerCharger + " x" + chargers;
+            weaponAmmo = ammoOnCharger;
+            weaponTotalAmmo = totalAmmo;
+            currentAmmoText.text = ammoOnCharger.ToString();
+            totalAmmoText.text = "/" + totalAmmo.ToString();
         }
     }
     void DrawTimerText()
     {
-        if (timer != (int)gm.totalTime)
+        if (gameTimer != (int)gm.totalTime)
         {
-            timer = (int)gm.totalTime;
-            timerText.text = timer.ToString("000");
+            gameTimer = (int)gm.totalTime;
+            timerText.text = gameTimer.ToString("000");
         }
     }
 }

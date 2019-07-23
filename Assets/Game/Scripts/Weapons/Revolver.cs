@@ -17,7 +17,7 @@ public class Revolver : Gun
             bp.AddBullet(bullet);
             AudioSource.PlayClipAtPoint(shootSound, transform.position);
             muzzleFlash.Play();
-            currentAmmo--;
+            currentAmmoOnCharger--;
         }
     }
 }

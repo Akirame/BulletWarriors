@@ -45,7 +45,7 @@ public class PowerUp : MonoBehaviour {
                     other.GetComponent<Player>().RestoreLife(25);
                     break;
                 case POWER_TYPE.AMMO:
-                    wb.ResetWeaponsEquipedAmmo();
+                    wb.AddAmmoWeaponsEquiped(30);
                     break;
                 case POWER_TYPE.LAST:
                     break;
@@ -58,11 +58,11 @@ public class PowerUp : MonoBehaviour {
 
     internal void Spawn(Vector3 position)
     {
+        gameObject.SetActive(true);
+        GetRandomPower();
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         transform.position = position + new Vector3(0,1,0);
         IsAlive = true;
-        gameObject.SetActive(true);
-        GetRandomPower();
     }
 
     private void GetRandomPower()
@@ -70,7 +70,7 @@ public class PowerUp : MonoBehaviour {
         type = (POWER_TYPE)UnityEngine.Random.Range(0, (int)POWER_TYPE.LAST);
         for (int i = 0; i < meshList.childCount; i++)
         {
-            meshList.GetChild((int)type).gameObject.SetActive(i == (int)type);
+            meshList.GetChild(i).gameObject.SetActive(i == (int)type);
         }
     }
 }

@@ -5,41 +5,43 @@ using UnityEngine;
 public abstract class Gun : MonoBehaviour
 {    
     public Transform shootPoint;
-    public GameObject bullet;
     public AudioClip shootSound;
-    public int totalAmmoPerCharger;
-    public int totalChargers;
-    public int chargers;
-    public int currentAmmo;
+    public int totalAmmo;
+    public int currentAmmoOnCharger;
+    public int clipSize;
     public abstract void Shoot(float bulletDamage, bool fromPlayer);
     public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
     public int weaponDamage;
     public BulletPool bp;
 
-    private void Start()
-    {
-        ResetAmmo();
-    }
     public void Reload()
     {
-        if (chargers > 0 && currentAmmo < totalAmmoPerCharger)
+        if (currentAmmoOnCharger < clipSize && totalAmmo > 0)
         {
-            currentAmmo = totalAmmoPerCharger;
-            chargers--;
+            if (totalAmmo > clipSize)
+            {
+                totalAmmo -= clipSize;
+                currentAmmoOnCharger = clipSize;
+            }
+            else
+            {
+                currentAmmoOnCharger = totalAmmo;
+                totalAmmo = 0;
+            }
         }
     }
     public bool CanShoot()
     {
-        if (currentAmmo > 0)
+        if (currentAmmoOnCharger > 0)
             return true;
         else
             return false;
     }
-    public void ResetAmmo()
+    public void AddAmmo(int count)
     {
-        currentAmmo = totalAmmoPerCharger;
-        chargers = totalChargers;
+        totalAmmo += count;
     }
+
     public float GetDamage() { return weaponDamage; }
 }

@@ -27,6 +27,8 @@ public class Player : MonoBehaviour {
     }
     #endregion
 
+    public delegate void StunedDel(float time);
+    public static StunedDel OnStuned;
     private bool stuned = false;
     private float stunedTime;
     private float timer;
@@ -75,6 +77,7 @@ public class Player : MonoBehaviour {
             stunedTime = stunTime;
             GetComponent<FirstPersonController>().m_WalkSpeed = 0;
             GetComponent<FirstPersonController>().m_RunSpeed = 0;
+            OnStuned(stunedTime);
         }
     }
 
@@ -82,6 +85,7 @@ public class Player : MonoBehaviour {
     public void TakeDamage(float val)
     {
         life -= val;
+        OnHit(this);
         if (life <= 0)
         {
             GameManager.GetInstance().gameOver = true;

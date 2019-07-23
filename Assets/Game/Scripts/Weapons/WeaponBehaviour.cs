@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour {
-    public delegate void WeaponsChanges(int currentAmmo, int maxAmmoPerCharger, int chargers);
+    public delegate void WeaponsChanges(int currentAmmo, int totalAmmo);
     public static WeaponsChanges OnWeaponChange;
     public Gun[] weapons;
     public Gun firstWeapon;
@@ -20,7 +20,6 @@ public class WeaponBehaviour : MonoBehaviour {
     private void Start() {
         currentWeapon = firstWeapon;
         secondaryWeapon = null;
-        //OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
     }
 
     private void Update() {
@@ -30,11 +29,11 @@ public class WeaponBehaviour : MonoBehaviour {
 
         if(buttonShoot) {
             currentWeapon.Shoot(damageMultiplier,true);
-            OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+            OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
-        if(buttonReload) {            
+        if(buttonReload) {
             currentWeapon.Reload();
-            OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+            OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
 
         if (hasDoubleDamage)
@@ -62,7 +61,7 @@ public class WeaponBehaviour : MonoBehaviour {
             secondaryWeapon.gameObject.SetActive(false);
             currentWeapon = firstWeapon;
         }        
-        OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+        OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
     private void SetSecondaryWeapon(int index) {
@@ -72,10 +71,9 @@ public class WeaponBehaviour : MonoBehaviour {
         }
         firstWeapon.gameObject.SetActive(false);
         secondaryWeapon = weapons[index];
-        ResetWeaponsEquipedAmmo();
         secondaryWeapon.gameObject.SetActive(true);
         currentWeapon = secondaryWeapon;
-        OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+        OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -86,14 +84,14 @@ public class WeaponBehaviour : MonoBehaviour {
         }
     }
 
-    public void ResetWeaponsEquipedAmmo()
+    public void AddAmmoWeaponsEquiped(int count)
     {
-        firstWeapon.ResetAmmo();
+        firstWeapon.AddAmmo(count);
         if (secondaryWeapon)
         {
-            secondaryWeapon.ResetAmmo();
+            secondaryWeapon.AddAmmo(count);
         }
-        OnWeaponChange(currentWeapon.currentAmmo, currentWeapon.totalAmmoPerCharger, currentWeapon.chargers);
+        OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
     public void DoubleDamage()
