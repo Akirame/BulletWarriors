@@ -5,9 +5,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
     public delegate void EnemyActions(Enemy e);
     public static EnemyActions OnDieWithBullet;
-    public GameObject[] powerUps;
     public float health = 3;
     private bool powerUpDroped = false;
+    public ItemPool ItemPool;
 
 	private void Awake() {
 		tag = "Enemy";
@@ -25,14 +25,16 @@ public class Enemy : MonoBehaviour {
 
     public void DropPowerUp()
     {
-        if (powerUps.Length > 0)
+        if (UnityEngine.Random.Range(0f, 1f) > 0.1f && !powerUpDroped)
         {
-            if (UnityEngine.Random.Range(0f,1f) > 0.45f && !powerUpDroped)
+            powerUpDroped = true;
+            var powerUp = ItemPool.Get();
+            if (powerUp == null)
             {
-                powerUpDroped = true;
-                Instantiate(powerUps[UnityEngine.Random.Range(0,powerUps.Length)], transform.position, Quaternion.identity, transform.parent);
+                return;
             }
+            powerUp.Spawn(transform.position);
+            ItemPool.AddItem(powerUp);
         }
     }
-
 }

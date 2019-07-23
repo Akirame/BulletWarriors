@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPool : ObjectPool<BulletBehaviour>
+public class StunBulletPool : ObjectPool<StunerBullet>
 {
 
-    public List<BulletBehaviour> activeBullets = new List<BulletBehaviour>();
+    public List<StunerBullet> activeBullets = new List<StunerBullet>();
 
     private void Update()
     {
@@ -13,7 +13,7 @@ public class BulletPool : ObjectPool<BulletBehaviour>
         {
             for (int i = activeBullets.Count - 1; i >= 0; i--)
             {
-                BulletBehaviour bullet = activeBullets[i];
+                StunerBullet bullet = activeBullets[i];
                 if (!bullet.IsAlive)
                 {
                     activeBullets.RemoveAt(i);
@@ -23,7 +23,7 @@ public class BulletPool : ObjectPool<BulletBehaviour>
         }
     }
 
-    public void AddBullet(BulletBehaviour b)
+    public void AddBullet(StunerBullet b)
     {
         activeBullets.Add(b);
     }

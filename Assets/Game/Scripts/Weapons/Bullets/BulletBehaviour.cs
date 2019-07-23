@@ -20,12 +20,16 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void Update()
     {
-        rig.velocity = speed * direction * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(direction);
-        lifeTimer += Time.deltaTime;
-		if (lifeTimer >= lifeTime) {
-            Kill();
-		}
+        if (IsAlive)
+        {
+            rig.velocity = speed * direction * Time.deltaTime;
+            transform.rotation = Quaternion.LookRotation(direction);
+            lifeTimer += Time.deltaTime;
+            if (lifeTimer >= lifeTime)
+            {
+                Kill();
+            }
+        }
     }
 
 	public void SetDirection(Vector3 dir) {
@@ -34,7 +38,9 @@ public class BulletBehaviour : MonoBehaviour
 
 	public void Kill() {
         IsAlive = false;
+        lifeTimer = 0;
 	}
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy" && fromPlayer)
@@ -42,8 +48,10 @@ public class BulletBehaviour : MonoBehaviour
             other.GetComponent<Enemy>().TakeDamage(bulletDamage);
             Kill();
         }
-        if (other.gameObject.tag == "Props")
+        if (other.gameObject.tag == "Props" || other.gameObject.tag == "Door")
+        {
             Kill();
+        }
         if (other.tag == "Player" && !fromPlayer)
         {
             other.GetComponent<Player>().TakeDamage(bulletDamage);
@@ -57,6 +65,7 @@ public class BulletBehaviour : MonoBehaviour
         bulletDamage = damage;
         fromPlayer = _fromPlayer;
         IsAlive = true;
+        gameObject.SetActive(true);
     }
 
     public float GetDamage(){ return bulletDamage; }

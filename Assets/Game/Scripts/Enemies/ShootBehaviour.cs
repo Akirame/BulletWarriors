@@ -13,9 +13,9 @@ public class ShootBehaviour : MonoBehaviour {
     public int damage;
     public GameObject bullet;
     public Transform firePosition;
-    public Transform bulletList;
     private float timer;
     private bool canShoot = true;
+    public BulletPool bp;
 
     private void Start()
     {
@@ -44,11 +44,13 @@ public class ShootBehaviour : MonoBehaviour {
     {
         if (OnFireDistance())
         {
-            GameObject b = Instantiate(bullet, firePosition.position, Quaternion.identity, bulletList);
-            BulletBehaviour bb = b.GetComponent<BulletBehaviour>();
-            bb.SetDirection(firePosition.forward);
-            bb.SetDamage(damage);
-            bb.SetFromPlayer(false);
+            var bullet = bp.Get();
+            if (bullet == null)
+            {
+                return;
+            }
+            bullet.Spawn(firePosition.position, firePosition.forward, damage, false);
+            bp.AddBullet(bullet);
             canShoot = false;
             fireTime = Random.Range(minFireTime, maxFireTime);
         }
