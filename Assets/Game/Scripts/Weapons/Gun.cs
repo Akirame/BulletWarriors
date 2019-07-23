@@ -29,7 +29,7 @@ public abstract class Gun : MonoBehaviour
             canShoot = false;
             if (totalAmmo > clipSize)
             {
-                totalAmmo -= clipSize;
+                totalAmmo -= clipSize - currentAmmoOnCharger;
                 currentAmmoOnCharger = clipSize;
             }
             else
