@@ -39,6 +39,7 @@ public class UI_Game : MonoBehaviour
     private int weaponAmmo;
     private int weaponTotalAmmo;
     private Animator anim;
+    public GameObject MobileControlsCanvas;
 
     void Start()
     {
@@ -52,6 +53,9 @@ public class UI_Game : MonoBehaviour
         player = gm.player;
         DrawTimerText();
         anim = GetComponent<Animator>();
+#if UNITY_ANDROID
+        MobileControlsCanvas.SetActive(true);
+#endif
     }
 
     private void PlayerStuned(float time)

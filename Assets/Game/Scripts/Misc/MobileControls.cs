@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MobileControls : MonoBehaviour {
-
+    
     public FixedJoystick moveJoystick;
     public FixedButton timeButton;
     public FixedTouchField touchField;
@@ -14,6 +14,7 @@ public class MobileControls : MonoBehaviour {
     private WeaponBehaviour weapons;
     private BulletTimeBehaviour btb;
 
+#if UNITY_ANDROID
     private void Start()
     {
         fps = GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
@@ -40,4 +41,5 @@ public class MobileControls : MonoBehaviour {
         shootButton.gameObject.SetActive(true);
         reloadButton.gameObject.SetActive(true);
     }
+#endif
 }

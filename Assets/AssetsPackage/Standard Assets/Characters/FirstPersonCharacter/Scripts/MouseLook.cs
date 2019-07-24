@@ -7,19 +7,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [Serializable]
     public class MouseLook
     {
-        public float XSensitivity = 2f;
-        public float YSensitivity = 2f;
+        public float XSensitivity = 20f;
+        public float YSensitivity = 20f;
         public bool clampVerticalRotation = true;
         public float MinimumX = -90F;
         public float MaximumX = 90F;
         public bool smooth;
         public float smoothTime = 5f;
+
+#if UNITY_ANDROID
         public bool lockCursor = false;
-
-
+        private bool m_cursorIsLocked = false;
+#else
+        public bool lockCursor = true;
+        private bool m_cursorIsLocked = true;
+#endif
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
-        private bool m_cursorIsLocked = false;
 
         [HideInInspector]
         public Vector2 lookAxis;
@@ -28,16 +32,22 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
+#if !UNITY_ANDROID
+            XSensitivity = 20f;
+            YSensitivity = 20f;
+#endif
         }
 
 
         public void LookRotation(Transform character, Transform camera)
         {
-            //float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
-            //float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+#if UNITY_ANDROID
             float yRot = lookAxis.x * XSensitivity;
             float xRot = lookAxis.y * YSensitivity;
-
+#else
+            float yRot = CrossPlatformInputManager.GetAxis("Mouse X") * XSensitivity;
+            float xRot = CrossPlatformInputManager.GetAxis("Mouse Y") * YSensitivity;
+#endif
             m_CharacterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             m_CameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);
 
@@ -62,12 +72,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void SetCursorLock(bool value)
         {
-            //lockCursor = value;
-            //if(!lockCursor)
-            //{//we force unlock the cursor if the user disable the cursor locking helper
-            //    Cursor.lockState = CursorLockMode.None;
-            //    Cursor.visible = true;
-            //}
+#if !UNITY_ANDROID
+
+            lockCursor = value;
+            if(!lockCursor)
+            {//we force unlock the cursor if the user disable the cursor locking helper
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+#endif
         }
 
         public void UpdateCursorLock()
@@ -85,7 +98,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else if(Input.GetMouseButtonUp(0))
             {
-                //m_cursorIsLocked = true;
+#if !UNITY_ANDROID
+                m_cursorIsLocked = true;
+#endif
             }
 
             if (m_cursorIsLocked)

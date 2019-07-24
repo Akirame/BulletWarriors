@@ -28,12 +28,21 @@ public class WeaponBehaviour : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Q) && firstWeapon && secondaryWeapon)
             ChangeWeapons();
-
-        if(buttonShoot && currentWeapon) {
+#if UNITY_ANDROID
+        if(buttonShoot && currentWeapon)        
+#else
+        if(Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon)
+#endif
+        {
             currentWeapon.Shoot(damageMultiplier,true);
             OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
-        if(buttonReload && currentWeapon) {
+#if UNITY_ANDROID
+        if(buttonReload && currentWeapon) 
+#else
+        if(Input.GetKeyDown(KeyCode.R) && currentWeapon)
+#endif
+        {
             currentWeapon.Reload();
             OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
         }
@@ -82,7 +91,9 @@ public class WeaponBehaviour : MonoBehaviour {
                 firstWeapon = weaponList[v];
                 currentWeapon = firstWeapon;
                 firstWeapon.gameObject.SetActive(true);
+#if UNITY_ANDROID
                 GetComponent<MobileControls>().ActivateAllFunctions();
+#endif
                 UI_Game.GetInstance().ActivateAllUI();
                 break;
             case 1:
