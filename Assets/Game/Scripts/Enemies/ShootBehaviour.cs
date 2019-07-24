@@ -14,30 +14,36 @@ public class ShootBehaviour : MonoBehaviour {
     public GameObject bullet;
     public Transform firePosition;
     private float timer;
-    private bool canShoot = true;
+    public bool canShoot = true;
     public BulletPool bp;
+    private ChaseBehaviour cb;
 
     private void Start()
     {
         fireTime = Random.Range(minFireTime, maxFireTime);
+        cb = GetComponent<ChaseBehaviour>();
     }
 
     // Update is called once per frame
     void Update () {
-        if (!canShoot)
+
+        if (cb != null && cb.alive)
         {
-            timer += Time.deltaTime;
-            if (timer >= fireTime)
+            if (!canShoot)
             {
-                canShoot = true;
-                timer = 0;
+                timer += Time.deltaTime;
+                if (timer >= fireTime)
+                {
+                    canShoot = true;
+                    timer = 0;
+                }
             }
+            else
+            {
+                Shoot();
+            }
+            firePosition.LookAt(Player.GetInstance().transform.position);
         }
-        else
-        {
-            Shoot();
-        }
-        firePosition.LookAt(Player.GetInstance().transform.position);
 	}
 
     public virtual void Shoot()

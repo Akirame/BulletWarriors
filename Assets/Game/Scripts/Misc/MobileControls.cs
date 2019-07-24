@@ -10,6 +10,7 @@ public class MobileControls : MonoBehaviour {
     public FixedTouchField touchField;
     public FixedButton shootButton;
     public FixedButton reloadButton;
+    public FixedButton changeWeaponButton;
     private UnityStandardAssets.Characters.FirstPerson.FirstPersonController fps;
     private WeaponBehaviour weapons;
     private BulletTimeBehaviour btb;
@@ -32,6 +33,8 @@ public class MobileControls : MonoBehaviour {
         fps.m_MouseLook.lookAxis = touchField.TouchDist;
         weapons.buttonReload = reloadButton.Pressed;
         weapons.buttonShoot = shootButton.Pressed;
+        weapons.buttonChangeWeapon = changeWeaponButton.Pressed;
+        changeWeaponButton.Pressed = false;
         reloadButton.Pressed = false;
         shootButton.Pressed = false;
     }
@@ -40,6 +43,7 @@ public class MobileControls : MonoBehaviour {
     {
         shootButton.gameObject.SetActive(true);
         reloadButton.gameObject.SetActive(true);
+        changeWeaponButton.gameObject.SetActive(true);
     }
 #endif
 }

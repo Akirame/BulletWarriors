@@ -10,18 +10,21 @@ public class Shotgun : Gun
     {
         if (CanShoot())
         {
-            //for (int i = 0; i < pellets; i++)
-            //{
-            //    GameObject go = Instantiate(bullet.gameObject, shootPoint.transform.position, Quaternion.identity, bulletGroup);
-            //    BulletBehaviour b = go.GetComponent<BulletBehaviour>();
-            //    b.SetDirection((transform.forward + (Random.insideUnitSphere * inaccurracy)));
-            //    b.SetDamage(weaponDamage * damageMultiplier);
-            //    b.SetFromPlayer(fromPlayer);
-            //    go.transform.rotation = shootPoint.transform.rotation;
-            //}
-            //AudioSource.PlayClipAtPoint(shootSound, transform.position);
-            //muzzleFlash.Play();
-            //currentAmmoOnCharger--;
+            canShoot = false;
+            anim.SetTrigger("Fire");
+            for (int i = 0; i < pellets; i++)
+            {
+                var bullet = bp.Get();
+                if (bullet == null)
+                {
+                    return;
+                }
+                bullet.Spawn(shootPoint.position, shootPoint.forward + (Random.insideUnitSphere * inaccurracy), weaponDamage * damageMultiplier, fromPlayer);
+                bp.AddBullet(bullet);
+                AudioSource.PlayClipAtPoint(shootSound, transform.position);
+                muzzleFlash.Play();
+                currentAmmoOnCharger--;
+            }
         }
     }
 }

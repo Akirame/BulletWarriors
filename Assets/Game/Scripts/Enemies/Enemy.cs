@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ public class Enemy : MonoBehaviour {
     public float health = 3;
     private bool powerUpDroped = false;
     public ItemPool ItemPool;
+    public bool alive = true;
+    public Collider coll;
+    private float timer;
 
 	private void Awake() {
 		tag = "Enemy";
@@ -15,12 +19,33 @@ public class Enemy : MonoBehaviour {
 
     public virtual void TakeDamage(float _hit)
     {
-        health -= _hit;
-        if (health <= 0)
+        if (alive)
         {
-            DropPowerUp();
-            Destroy(gameObject);
+            health -= _hit;
+            if (health <= 0)
+            {
+                DropPowerUp();
+                alive = false;
+            }
         }
+    }
+
+    protected void Update()
+    {
+        if (!alive)
+        {
+            timer += Time.deltaTime;
+            if (timer > 2)
+            {
+                Kill();
+            }
+        }
+    }
+
+    private void Kill()
+    {
+        coll.isTrigger = true;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     public void DropPowerUp()

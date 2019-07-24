@@ -85,7 +85,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PA_WarriorMat
-    second: {fileID: 2100000, guid: 489200780bbad0c469ff6bb07454d814, type: 2}
+    second: {fileID: 2100000, guid: 7f12674ca0e631643a17b7c053b38f64, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
@@ -124,7 +124,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -264,7 +264,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

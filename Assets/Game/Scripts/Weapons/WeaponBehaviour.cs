@@ -14,6 +14,7 @@ public class WeaponBehaviour : MonoBehaviour {
     public float damageMultiplier = 1;
     public bool buttonReload = false;
     public bool buttonShoot = false;
+    public bool buttonChangeWeapon = false;
     public float doubleDamageTime = 5;
     private float doubleDamageTimer = 0;
     private bool hasDoubleDamage = false;
@@ -25,9 +26,15 @@ public class WeaponBehaviour : MonoBehaviour {
     }
 
     private void Update() {
-
-        if(Input.GetKeyDown(KeyCode.Q) && firstWeapon && secondaryWeapon)
+#if UNITY_ANDROID
+        if (buttonChangeWeapon && firstWeapon && secondaryWeapon)
+        {
             ChangeWeapons();
+        }
+#else
+        if (Input.GetKeyDown(KeyCode.Q) && firstWeapon && secondaryWeapon)
+            ChangeWeapons();
+#endif
 #if UNITY_ANDROID
         if(buttonShoot && currentWeapon)        
 #else
@@ -72,6 +79,7 @@ public class WeaponBehaviour : MonoBehaviour {
             secondaryWeapon.gameObject.SetActive(false);
             currentWeapon = firstWeapon;
         }
+        currentWeapon.WeaponSelected();
         OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
@@ -103,6 +111,7 @@ public class WeaponBehaviour : MonoBehaviour {
             default:
                 break;
         }
+        currentWeapon.WeaponSelected();
     }
 
     public void AddAmmoWeaponsEquiped(int count)

@@ -23,16 +23,28 @@ public class ChaseBehaviour : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
-        if (pd.isPlayerInside)
+        base.Update();
+        if (alive)
         {
-            if (hasPatrol)
-                GetComponent<PatrolBehavior>().enabled = false;
-            Movement();
+            if (pd.isPlayerInside)
+            {
+                if (hasPatrol)
+                    GetComponent<PatrolBehavior>().enabled = false;
+                Movement();
+            }
+            else
+            {
+                velocity = Vector3.zero;
+                if (hasPatrol)
+                    GetComponent<PatrolBehavior>().enabled = true;
+            }
         }
         else
         {
             if (hasPatrol)
-                GetComponent<PatrolBehavior>().enabled = true;
+            {
+                GetComponent<PatrolBehavior>().enabled = false;
+            }
         }
     }
 

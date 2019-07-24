@@ -10,7 +10,6 @@ public abstract class Gun : MonoBehaviour
     public int currentAmmoOnCharger;
     public int clipSize;
     public abstract void Shoot(float bulletDamage, bool fromPlayer);
-    public Transform bulletGroup;
     public ParticleSystem muzzleFlash;
     public int weaponDamage;
     public BulletPool bp;
@@ -40,6 +39,22 @@ public abstract class Gun : MonoBehaviour
             anim.SetTrigger("Reload");
         }
     }
+
+    public void WeaponSelected()
+    {
+        if (anim && !canShoot)
+        {
+            canShoot = false;
+            anim.SetTrigger("Selected");
+        }
+    }
+
+    private void OnBecameVisible()
+    {
+        canShoot = false;
+        anim.SetTrigger("Selected");
+    }
+
     public bool CanShoot()
     {
         return canShoot && currentAmmoOnCharger > 0;
