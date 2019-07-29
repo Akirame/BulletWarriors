@@ -19,6 +19,7 @@ public class ChaseBehaviour : Enemy {
         pd = GetComponentInChildren<PlayerDetector>();
         player = GameManager.GetInstance().player;
         hasPatrol = GetComponent<PatrolBehavior>() != null;
+
     }
 	
 	// Update is called once per frame

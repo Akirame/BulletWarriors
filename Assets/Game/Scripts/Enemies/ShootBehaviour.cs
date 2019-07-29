@@ -11,7 +11,6 @@ public class ShootBehaviour : MonoBehaviour {
     public float maxFireTime;
     private float fireTime;
     public int damage;
-    public GameObject bullet;
     public Transform firePosition;
     private float timer;
     public bool canShoot = true;
@@ -22,6 +21,11 @@ public class ShootBehaviour : MonoBehaviour {
     {
         fireTime = Random.Range(minFireTime, maxFireTime);
         cb = GetComponent<ChaseBehaviour>();
+        bp = GameObject.FindGameObjectWithTag("BulletPool").GetComponent<BulletPool>();
+        if (name.Contains("Spider"))
+        {
+            bp = GameObject.FindGameObjectWithTag("StunBulletPool").GetComponent<BulletPool>();
+        }
     }
 
     // Update is called once per frame

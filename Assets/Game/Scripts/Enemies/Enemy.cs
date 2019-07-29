@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
 
 	private void Awake() {
 		tag = "Enemy";
+        ItemPool = GameObject.FindGameObjectWithTag("ItemPool").GetComponent<ItemPool>();
 	}
 
     public virtual void TakeDamage(float _hit)
