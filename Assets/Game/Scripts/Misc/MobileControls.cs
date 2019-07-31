@@ -38,8 +38,7 @@ public class MobileControls : MonoBehaviour {
         }
         fps.m_MouseLook.lookAxis = touchField.TouchDist;
         weapons.buttonReload = reloadButton.Pressed;
-        weapons.buttonShoot = shootButton.Pressed;
-        weapons.buttonShoot = shootButton2.Pressed;
+        weapons.buttonShoot = shootButton.Pressed || shootButton2.Pressed;
         weapons.buttonChangeWeapon = changeWeaponButton.Pressed;
         jumpButton.Pressed = false;
         changeWeaponButton.Pressed = false;
