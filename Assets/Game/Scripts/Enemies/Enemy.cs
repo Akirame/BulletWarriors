@@ -12,10 +12,12 @@ public class Enemy : MonoBehaviour {
     public bool alive = true;
     public Collider coll;
     private float timer;
+    private ParticleSystem hitParticles;
 
 	private void Awake() {
 		tag = "Enemy";
         ItemPool = GameObject.FindGameObjectWithTag("ItemPool").GetComponent<ItemPool>();
+        hitParticles = GetComponentInChildren<ParticleSystem>();
 	}
 
     public virtual void TakeDamage(float _hit)
@@ -23,6 +25,7 @@ public class Enemy : MonoBehaviour {
         if (alive)
         {
             health -= _hit;
+            hitParticles.Play();
             if (health <= 0)
             {
                 DropPowerUp();
@@ -36,9 +39,13 @@ public class Enemy : MonoBehaviour {
         if (!alive)
         {
             timer += Time.deltaTime;
-            if (timer > 2)
+            if (timer > 1.5f)
             {
                 Kill();
+            }
+            if (timer > 4)
+            {
+                gameObject.SetActive(false);
             }
         }
     }
@@ -46,12 +53,14 @@ public class Enemy : MonoBehaviour {
     private void Kill()
     {
         coll.isTrigger = true;
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        var rig = GetComponent<Rigidbody>();
+        rig.constraints = RigidbodyConstraints.None;
+        rig.useGravity = true;
     }
 
     public void DropPowerUp()
     {
-        if (UnityEngine.Random.Range(0f, 1f) > 0.1f && !powerUpDroped)
+        if (ItemPool && UnityEngine.Random.Range(0f, 1f) > 0.1f && !powerUpDroped)
         {
             powerUpDroped = true;
             var powerUp = ItemPool.Get();

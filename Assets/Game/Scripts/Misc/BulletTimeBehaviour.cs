@@ -20,6 +20,13 @@ public class BulletTimeBehaviour : MonoBehaviour
     }
     private void Update()
     {
+#if !UNITY_ANDROID
+        if (Input.GetMouseButtonDown(1))
+        {
+            SetConsumeEnabled(true);
+        }
+#endif
+
         if (activated && energyBar > 0f && !consumed)
         {
             Time.timeScale = 0.3f;

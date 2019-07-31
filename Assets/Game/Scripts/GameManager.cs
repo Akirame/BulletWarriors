@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,12 +19,13 @@ public class GameManager : MonoBehaviour {
         else
             Destroy(this.gameObject);
     }
-    #endregion        
+    #endregion
     public Player player;
-    public float totalTime = 300;
+    public float totalTime = 480;
     public bool gameStarted = false;
     public bool gameOver = false;
     public bool win = false;
+    private float winTimer;
 
 
     private void Start()
@@ -43,11 +46,30 @@ public class GameManager : MonoBehaviour {
             {
                 LoaderManager.Get().LoadScene("MainMenuScene");
             }
+            if (win)
+            {
+                winTimer += Time.deltaTime;
+                if (winTimer > 5)
+                {
+                    LoaderManager.Get().LoadScene("MainMenuScene");
+                }
+            }
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
 
             totalTime = 1;
         }
-	}
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+
+            WinGame();
+        }
+    }
+
+    public void WinGame()
+    {
+        win = true;
+        UI_Game.GetInstance().WinState();
+    }
 }

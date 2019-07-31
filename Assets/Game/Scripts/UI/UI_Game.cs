@@ -26,6 +26,7 @@ public class UI_Game : MonoBehaviour
     public Text timerText;
     public Text currentAmmoText;
     public Text totalAmmoText;
+    public Text winText;
     public Image energyBar;
     public Image healthBar;
     public Image damageImage;
@@ -46,16 +47,21 @@ public class UI_Game : MonoBehaviour
         WeaponBehaviour.OnWeaponChange += DrawWeaponsText;
         Player.OnHit += PlayerDamaged;
         Player.OnStuned += PlayerStuned;
-        gameTimer = 0;
         weaponAmmo = 0;
         weaponTotalAmmo = 0;
         gm = GameManager.GetInstance();
         player = gm.player;
         DrawTimerText();
         anim = GetComponent<Animator>();
+        MobileControlsCanvas.SetActive(false);
 #if UNITY_ANDROID
         MobileControlsCanvas.SetActive(true);
 #endif
+    }
+
+    internal void WinState()
+    {
+        winText.gameObject.SetActive(true);
     }
 
     private void PlayerStuned(float time)
@@ -66,6 +72,11 @@ public class UI_Game : MonoBehaviour
     private void PlayerDamaged(Player p)
     {
         anim.SetTrigger("Damaged");
+    }
+
+    public void ItemPicked()
+    {
+        anim.SetTrigger("Pick");
     }
 
     // Update is called once per frame
@@ -106,17 +117,21 @@ public class UI_Game : MonoBehaviour
     }
     void DrawTimerText()
     {
-        if (gameTimer != (int)gm.totalTime)
-        {
-            gameTimer = (int)gm.totalTime;
-            timerText.text = gameTimer.ToString("000");
-        }
+        int min = (int)Mathf.Floor((int)gm.totalTime / 60);
+        int seconds = (int)Mathf.Floor((((gm.totalTime / 60) - min)) * 60);
+        timerText.text = min.ToString() + ":" + seconds.ToString("00");
     }
 
-    public void ActivateAllUI()
+    public void ActivateAllUI(Gun weapon)
     {
         currentAmmoText.gameObject.SetActive(true);
         totalAmmoText.gameObject.SetActive(true);
+        DrawWeaponsText(weapon.currentAmmoOnCharger, weapon.totalAmmo);
+    }
+
+    private void OnDestroy()
+    {
+        WeaponBehaviour.OnWeaponChange -= DrawWeaponsText;
     }
 
 }

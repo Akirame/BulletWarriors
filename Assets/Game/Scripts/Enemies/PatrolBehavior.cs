@@ -6,8 +6,8 @@ using UnityEngine;
 public class PatrolBehavior : MonoBehaviour {
 
     public Transform[] patrolPoints;
-    public Transform nextPoint;
-    public int idxPoint = -1;
+    private Transform nextPoint;
+    private int idxPoint = -1;
     public float minDistance = 1;
     private ChaseBehaviour cb;
     public float rotationSpeed = 5;

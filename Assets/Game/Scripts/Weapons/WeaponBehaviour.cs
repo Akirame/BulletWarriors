@@ -36,7 +36,7 @@ public class WeaponBehaviour : MonoBehaviour {
             ChangeWeapons();
 #endif
 #if UNITY_ANDROID
-        if(buttonShoot && currentWeapon)        
+        if(buttonShoot && currentWeapon)
 #else
         if(Input.GetKeyDown(KeyCode.Mouse0) && currentWeapon)
 #endif
@@ -88,6 +88,7 @@ public class WeaponBehaviour : MonoBehaviour {
         {
             SetWeapon(other.GetComponent<WeaponItem>().GetIndex());
             other.gameObject.SetActive(false);
+            UI_Game.GetInstance().ItemPicked();
         }
     }
 
@@ -102,7 +103,7 @@ public class WeaponBehaviour : MonoBehaviour {
 #if UNITY_ANDROID
                 GetComponent<MobileControls>().ActivateAllFunctions();
 #endif
-                UI_Game.GetInstance().ActivateAllUI();
+                UI_Game.GetInstance().ActivateAllUI(firstWeapon);
                 break;
             case 1:
                 secondaryWeapon = weaponList[v];

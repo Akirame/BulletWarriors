@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spider : MonoBehaviour {
+public class Spider : Enemy {
 
     private ShootBehaviour sb;
     private ChaseBehaviour cb;
@@ -20,6 +20,7 @@ public class Spider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        base.Update();
         OnAttackPlayAnimation();
         OnDeadPlayAnimation();
         anim.SetFloat("Walk", Mathf.Abs(cb.velocity.magnitude));
@@ -43,7 +44,7 @@ public class Spider : MonoBehaviour {
 
     private void OnDeadPlayAnimation()
     {
-        if (!cb.alive)
+        if (!alive)
         {
             if (!deadAnim)
             {

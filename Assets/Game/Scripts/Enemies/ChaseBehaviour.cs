@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseBehaviour : Enemy {
+public class ChaseBehaviour : MonoBehaviour {
 
     public float minDistance;
     public int speed;
@@ -12,6 +12,7 @@ public class ChaseBehaviour : Enemy {
     private Player player;
     public Vector3 velocity;
     private bool hasPatrol;
+    private Enemy enem;
 
     // Use this for initialization
     void Start () {
@@ -19,13 +20,12 @@ public class ChaseBehaviour : Enemy {
         pd = GetComponentInChildren<PlayerDetector>();
         player = GameManager.GetInstance().player;
         hasPatrol = GetComponent<PatrolBehavior>() != null;
-
+        enem = GetComponent<Enemy>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        base.Update();
-        if (alive)
+        if (enem.alive)
         {
             if (pd.isPlayerInside)
             {

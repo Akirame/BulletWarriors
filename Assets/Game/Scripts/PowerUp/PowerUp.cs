@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
 
-    private enum POWER_TYPE {DAMAGE, HEALTH, AMMO, LAST }
-    private POWER_TYPE type;
+    public enum POWER_TYPE {DAMAGE, HEALTH, AMMO, LAST }
+    public POWER_TYPE type;
     public float disappearTime = 10;
     private float timer = 0;
     public bool IsAlive = false;
@@ -28,6 +28,7 @@ public class PowerUp : MonoBehaviour {
     {
         timer = 0;
         IsAlive = false;
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,24 +36,28 @@ public class PowerUp : MonoBehaviour {
         if (other.tag == "Player")
         {
             WeaponBehaviour wb = other.gameObject.GetComponent<WeaponBehaviour>();
-            switch (type)
+            if (wb.firstWeapon)
             {
-                case POWER_TYPE.DAMAGE:
-                    wb.DoubleDamage();
-                    Kill();
-                    break;
-                case POWER_TYPE.HEALTH:
-                    other.GetComponent<Player>().RestoreLife(25);
-                    break;
-                case POWER_TYPE.AMMO:
-                    wb.AddAmmoWeaponsEquiped(30);
-                    break;
-                case POWER_TYPE.LAST:
-                    break;
-                default:
-                    break;
+                switch (type)
+                {
+                    case POWER_TYPE.DAMAGE:
+                        wb.DoubleDamage();
+                        Kill();
+                        break;
+                    case POWER_TYPE.HEALTH:
+                        other.GetComponent<Player>().RestoreLife(20);
+                        break;
+                    case POWER_TYPE.AMMO:
+                        wb.AddAmmoWeaponsEquiped(15);
+                        break;
+                    case POWER_TYPE.LAST:
+                        break;
+                    default:
+                        break;
+                }
+                UI_Game.GetInstance().ItemPicked();
+                Kill();
             }
-            Kill();
         }
     }
 

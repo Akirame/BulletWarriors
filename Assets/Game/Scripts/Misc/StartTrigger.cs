@@ -8,7 +8,7 @@ public class StartTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !activated)
+        if (other.tag == "Player" && !activated && other.GetComponent<WeaponBehaviour>().firstWeapon)
         {
             activated = true;
             GameManager.GetInstance().gameStarted = true;

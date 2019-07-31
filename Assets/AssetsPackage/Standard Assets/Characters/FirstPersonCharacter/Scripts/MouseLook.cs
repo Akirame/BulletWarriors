@@ -33,8 +33,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CharacterTargetRot = character.localRotation;
             m_CameraTargetRot = camera.localRotation;
 #if !UNITY_ANDROID
-            XSensitivity = 20f;
-            YSensitivity = 20f;
+            XSensitivity = 6f;
+            YSensitivity = 6f;
 #endif
         }
 

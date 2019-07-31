@@ -16,12 +16,14 @@ public class ShootBehaviour : MonoBehaviour {
     public bool canShoot = true;
     public BulletPool bp;
     private ChaseBehaviour cb;
+    private Enemy enem;
 
     private void Start()
     {
         fireTime = Random.Range(minFireTime, maxFireTime);
         cb = GetComponent<ChaseBehaviour>();
         bp = GameObject.FindGameObjectWithTag("BulletPool").GetComponent<BulletPool>();
+        enem = GetComponent<Enemy>();
         if (name.Contains("Spider"))
         {
             bp = GameObject.FindGameObjectWithTag("StunBulletPool").GetComponent<BulletPool>();
@@ -31,7 +33,7 @@ public class ShootBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        if (cb != null && cb.alive)
+        if (enem.alive)
         {
             if (!canShoot)
             {

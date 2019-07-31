@@ -23,8 +23,8 @@ public class Shotgun : Gun
                 bp.AddBullet(bullet);
                 AudioSource.PlayClipAtPoint(shootSound, transform.position);
                 muzzleFlash.Play();
-                currentAmmoOnCharger--;
             }
+            currentAmmoOnCharger--;
         }
     }
 }
