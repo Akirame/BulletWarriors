@@ -23,7 +23,7 @@ public class BulletTimeBehaviour : MonoBehaviour
 #if !UNITY_ANDROID
         if (Input.GetMouseButtonDown(1))
         {
-            SetConsumeEnabled(true);
+            SetConsumeEnabled();
         }
 #endif
 
@@ -32,14 +32,16 @@ public class BulletTimeBehaviour : MonoBehaviour
             Time.timeScale = 0.3f;
             Time.fixedDeltaTime = Time.timeScale * .02f;
             energyBar -= consumptionFactor * Time.unscaledDeltaTime;
-            if (energyBar <= 0)
+            if(energyBar <= 0)
+            {
                 consumed = true;
+                Time.timeScale = timeScale;
+                Time.fixedDeltaTime = fixedDeltaTime;
+            }
         }
         else
         {
             activated = false;
-            Time.timeScale = timeScale;
-            Time.fixedDeltaTime = fixedDeltaTime;
             if (energyBar < maxEnergy)
             {
                 energyBar += consumptionFactor * Time.unscaledDeltaTime * 2;
@@ -52,9 +54,14 @@ public class BulletTimeBehaviour : MonoBehaviour
         }
     }
 
-    internal void SetConsumeEnabled(bool pressed)
+    internal void SetConsumeEnabled()
     {
-        activated = pressed;
+        activated = !activated;
+        if(!activated)
+        {
+            Time.timeScale = timeScale;
+            Time.fixedDeltaTime = fixedDeltaTime;
+        }
     }
 
 }
