@@ -15,10 +15,14 @@ public abstract class Gun : MonoBehaviour
     public BulletPool bp;
     protected Animator anim;
     protected bool canShoot = true;
+    protected Camera fpsCam;
+    protected LayerMask layerMask;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+        fpsCam = GetComponentInParent<Camera>();
+        layerMask = 1 << 0 << 8;
     }
 
     public void Reload()

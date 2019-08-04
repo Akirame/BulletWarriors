@@ -20,13 +20,27 @@ public class Enemy : MonoBehaviour {
         hitParticles = GetComponentInChildren<ParticleSystem>();
 	}
 
-    public virtual void TakeDamage(float _hit)
+    public virtual void TakeDamage(float _hit,Vector3 hitPosition)
     {
         if (alive)
         {
             health -= _hit;
+            hitParticles.transform.position = hitPosition;
             hitParticles.Play();
             if (health <= 0)
+            {
+                DropPowerUp();
+                alive = false;
+            }
+        }
+    }
+    public virtual void TakeDamage(float _hit)
+    {
+        if(alive)
+        {
+            health -= _hit;
+            hitParticles.Play();
+            if(health <= 0)
             {
                 DropPowerUp();
                 alive = false;
