@@ -17,6 +17,7 @@ public class ShootBehaviour : MonoBehaviour {
     public BulletPool bp;
     private ChaseBehaviour cb;
     private Enemy enem;
+    public AudioClip shootAudio;
 
     private void Start()
     {
@@ -65,6 +66,8 @@ public class ShootBehaviour : MonoBehaviour {
             bp.AddBullet(bullet);
             canShoot = false;
             fireTime = Random.Range(minFireTime, maxFireTime);
+            enem.audioSource.clip = shootAudio;
+            enem.audioSource.Play();
         }
     }
 

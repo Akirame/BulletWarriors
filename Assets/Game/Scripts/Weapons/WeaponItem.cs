@@ -6,6 +6,7 @@ public class WeaponItem : MonoBehaviour {
 
     public int weaponIndex;
     private float timer;
+    public AudioClip itemPick;
 
     private void Update()
     {
@@ -15,6 +16,7 @@ public class WeaponItem : MonoBehaviour {
     }
 
     public int GetIndex() {
+        AudioSource.PlayClipAtPoint(itemPick,transform.position);
         return weaponIndex;
     }
 

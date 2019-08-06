@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 public class UIManagerMainMenu : MonoBehaviour {
 
     public GameObject UI_MainMenu;
-    public GameObject UI_Options;
     public GameObject UI_Credits;
+    private Animator anim;
 
     private void Start() {
-        EnableCanvas(true, false, false);
+        EnableCanvas(true, false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        anim = GetComponent<Animator>();
     }
     public void PlayPressed()
     {
@@ -20,23 +21,19 @@ public class UIManagerMainMenu : MonoBehaviour {
     }
     public void CreditsPressed()
     {
-        EnableCanvas(false, false, true);
-    }
-
-    public void OptionsPressed()
-    {
-        EnableCanvas(false, true, false);
+        EnableCanvas(false, true);
+        anim.SetTrigger("Credits");
     }
     public void BackPressed() {
-        EnableCanvas(true, false, false);
+        EnableCanvas(true, false);
+        anim.SetTrigger("Start");
     }
     public void ExitPressed()
     {
         Application.Quit();
     }
-    private void EnableCanvas(bool mainMenu, bool options, bool credits) {
+    private void EnableCanvas(bool mainMenu, bool credits) {
         UI_MainMenu.SetActive(mainMenu);
-        UI_Options.SetActive(options);
         UI_Credits.SetActive(credits);
     }
 

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
         else
             Destroy(this.gameObject);
     }
+
     #endregion
     public Player player;
     public float totalTime = 480;
@@ -26,7 +27,8 @@ public class GameManager : MonoBehaviour {
     public bool gameOver = false;
     public bool win = false;
     private float winTimer;
-
+    public AudioClip gameMusic;
+    public AudioClip bossMusic;
 
     private void Start()
     {
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.F1))
         {
 
-            totalTime = 1;
+            BossMode();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
@@ -72,4 +74,11 @@ public class GameManager : MonoBehaviour {
         win = true;
         UI_Game.GetInstance().WinState();
     }
+
+    public void BossMode()
+    {
+        GetComponent<AudioSource>().clip = bossMusic;
+        GetComponent<AudioSource>().Play();
+    }
+
 }

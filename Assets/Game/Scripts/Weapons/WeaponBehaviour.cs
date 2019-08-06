@@ -18,6 +18,8 @@ public class WeaponBehaviour : MonoBehaviour {
     public float doubleDamageTime = 5;
     private float doubleDamageTimer = 0;
     private bool hasDoubleDamage = false;
+    private bool canChangeWeapon = true;
+    private float changeWeaponTimer = 0;
 
     private void Start() {
         currentWeapon = null;
@@ -64,23 +66,37 @@ public class WeaponBehaviour : MonoBehaviour {
                 damageMultiplier = 1;
             }
         }
+
+        if (!canChangeWeapon)
+        {
+            changeWeaponTimer += Time.deltaTime;
+            if (changeWeaponTimer > 1.5f)
+            {
+                changeWeaponTimer = 0;
+                canChangeWeapon = true;
+            }
+        }
     }
 
     private void ChangeWeapons() {
-        if(secondaryWeapon && firstWeapon.isActiveAndEnabled)
+        if (canChangeWeapon)
         {
-            firstWeapon.gameObject.SetActive(false);
-            secondaryWeapon.gameObject.SetActive(true);
-            currentWeapon = secondaryWeapon;
+            if (secondaryWeapon && firstWeapon.isActiveAndEnabled)
+            {
+                firstWeapon.gameObject.SetActive(false);
+                secondaryWeapon.gameObject.SetActive(true);
+                currentWeapon = secondaryWeapon;
+            }
+            else if (secondaryWeapon)
+            {
+                firstWeapon.gameObject.SetActive(true);
+                secondaryWeapon.gameObject.SetActive(false);
+                currentWeapon = firstWeapon;
+            }
+            currentWeapon.WeaponSelected();
+            OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
+            canChangeWeapon = false;
         }
-        else if (secondaryWeapon)
-        {
-            firstWeapon.gameObject.SetActive(true);
-            secondaryWeapon.gameObject.SetActive(false);
-            currentWeapon = firstWeapon;
-        }
-        currentWeapon.WeaponSelected();
-        OnWeaponChange(currentWeapon.currentAmmoOnCharger, currentWeapon.totalAmmo);
     }
 
     private void OnTriggerEnter(Collider other) {

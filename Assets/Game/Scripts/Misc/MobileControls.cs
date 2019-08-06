@@ -29,7 +29,7 @@ public class MobileControls : MonoBehaviour {
         fps.runAxis = moveJoystick.inputVector;
         if (timeButton.Pressed)
         {
-            btb.SetConsumeEnabled(true);
+            btb.SetConsumeEnabled();
             timeButton.Pressed = false;
         }
         if (jumpButton.Pressed)

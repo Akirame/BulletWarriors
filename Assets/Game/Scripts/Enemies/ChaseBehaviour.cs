@@ -27,7 +27,7 @@ public class ChaseBehaviour : MonoBehaviour {
 	void Update () {
         if (enem.alive)
         {
-            if (pd.isPlayerInside)
+            if (pd.isPlayerInside || enem.receivingDamage)
             {
                 if (hasPatrol)
                     GetComponent<PatrolBehavior>().enabled = false;

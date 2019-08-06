@@ -15,7 +15,7 @@ public class Revolver : Gun
 
             Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f) + new Vector3(0, 0, 0.5f));
 
-            RaycastHit hit;            
+            RaycastHit hit;
             
             if(Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit,layerMask))
             {

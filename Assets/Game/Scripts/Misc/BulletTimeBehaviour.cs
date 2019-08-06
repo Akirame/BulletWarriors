@@ -54,7 +54,7 @@ public class BulletTimeBehaviour : MonoBehaviour
         }
     }
 
-    internal void SetConsumeEnabled()
+    public void SetConsumeEnabled()
     {
         activated = !activated;
         if(!activated)

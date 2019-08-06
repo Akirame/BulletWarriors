@@ -11,6 +11,7 @@ public class PowerUp : MonoBehaviour {
     private float timer = 0;
     public bool IsAlive = false;
     public Transform meshList;
+    public AudioClip itemPick;
 
     private void Update()
     {
@@ -33,8 +34,9 @@ public class PowerUp : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && IsAlive)
         {
+            AudioSource.PlayClipAtPoint(itemPick, transform.position);
             WeaponBehaviour wb = other.gameObject.GetComponent<WeaponBehaviour>();
             if (wb.firstWeapon)
             {

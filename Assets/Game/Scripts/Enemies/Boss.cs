@@ -11,7 +11,8 @@ public class Boss : Enemy {
     private int idxPoint = -1;
     private float ascendTime = 3;
     private float ascendTimer = 0;
-    private bool ascended = false;
+    public bool onAscended = false;
+    public bool ascend = false;
     public float speed = 100; 
     private Rigidbody rig;
     private PlayerDetector pd;
@@ -26,24 +27,24 @@ public class Boss : Enemy {
     private void Update()
     {
         base.Update();
-        if (pd.isPlayerInside)
+        if (alive)
         {
-            if (alive)
+            if (ascend)
             {
-                if (!ascended)
-                {
-                    AscendOnAir();
-                }
-                else
-                {
-                    MoveToNextPosition();
-                }
-                transform.LookAt(GameManager.GetInstance().player.transform.position);
+                AscendOnAir();
             }
             else
             {
-                GameManager.GetInstance().WinGame();
+                if (onAscended)
+                {
+                    MoveToNextPosition();
+                    transform.LookAt(GameManager.GetInstance().player.transform.position);
+                }
             }
+        }
+        else
+        {
+            GameManager.GetInstance().WinGame();
         }
     }
 
@@ -66,7 +67,8 @@ public class Boss : Enemy {
         ascendTimer += Time.deltaTime;
         if (ascendTimer >= ascendTime)
         {
-            ascended = true;
+            onAscended = true;
+            ascend = false;
             ascendTimer = 0;
         }
     }

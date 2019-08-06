@@ -12,7 +12,10 @@ public class Enemy : MonoBehaviour {
     public bool alive = true;
     public Collider coll;
     private float timer;
+    public bool receivingDamage = false;
     private ParticleSystem hitParticles;
+    public AudioSource audioSource;
+    public AudioClip damagedAudio;
 
 	private void Awake() {
 		tag = "Enemy";
@@ -24,9 +27,12 @@ public class Enemy : MonoBehaviour {
     {
         if (alive)
         {
+            receivingDamage = true;
             health -= _hit;
             hitParticles.transform.position = hitPosition;
             hitParticles.Play();
+            audioSource.clip = damagedAudio;
+            audioSource.Play();
             if (health <= 0)
             {
                 DropPowerUp();

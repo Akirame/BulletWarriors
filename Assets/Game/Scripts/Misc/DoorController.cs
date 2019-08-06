@@ -5,6 +5,7 @@ using UnityEngine;
 public class DoorController : MonoBehaviour
 {
     public BoxCollider doorCollider;
+    public AudioSource aSource;
 
     private Animator anim;
     public bool opened = false;
@@ -22,6 +23,7 @@ public class DoorController : MonoBehaviour
             {
                 opened = true;
                 anim.SetTrigger("openDoor");
+                aSource.Play();
             }
         }
     }
@@ -34,6 +36,7 @@ public class DoorController : MonoBehaviour
             {
                 opened = false;
                 anim.SetTrigger("closeDoor");
+                aSource.Play();
             }
         }
     }

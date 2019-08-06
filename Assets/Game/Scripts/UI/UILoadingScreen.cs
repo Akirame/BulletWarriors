@@ -6,14 +6,12 @@ using UnityEngine.UI;
 
 public class UILoadingScreen : MonoBehaviour
 {
-    public Text loadingText;
-    public Image loadingBar;    
+    public Image loadingBar;
 
     public void Update()
     {
-        int loadingVal = (int)(LoaderManager.Get().loadingProgress * 100);        
-        loadingText.text = "Loading " + loadingVal;
-        loadingBar.fillAmount = loadingVal / 100;     
+        int loadingVal = (int)(LoaderManager.Get().loadingProgress * 100);
+        loadingBar.fillAmount = (float)loadingVal / 100;
     }    
     public void SetVisible(bool show)
     {

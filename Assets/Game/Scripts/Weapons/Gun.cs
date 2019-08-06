@@ -17,6 +17,7 @@ public abstract class Gun : MonoBehaviour
     protected bool canShoot = true;
     protected Camera fpsCam;
     protected LayerMask layerMask;
+    public AudioClip reloadSound;
 
     private void Start()
     {
@@ -41,6 +42,7 @@ public abstract class Gun : MonoBehaviour
                 totalAmmo = 0;
             }
             anim.SetTrigger("Reload");
+            AudioSource.PlayClipAtPoint(reloadSound, transform.position);
         }
     }
 

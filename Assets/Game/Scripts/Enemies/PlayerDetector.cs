@@ -15,15 +15,15 @@ public class PlayerDetector : MonoBehaviour {
     private void Update()
     {
         RaycastHit hit;
-        if(checkPlayerOnSight && player)
+        if(checkPlayerOnSight/* && player*/)
         {
-            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
-            {
-                if(hit.transform.gameObject.tag == "Player")
-                    isPlayerInside = true;
-                else
-                    isPlayerInside = false;
-            }
+            //if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+            //{
+            //    if(hit.transform.gameObject.tag == "Player")
+            //        isPlayerInside = true;
+            //    else
+            //        isPlayerInside = false;
+            //}
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -31,7 +31,8 @@ public class PlayerDetector : MonoBehaviour {
         if (other.tag == "Player")
         {
             checkPlayerOnSight = true;
-            player = other.transform;
+            isPlayerInside = true;
+            //player = other.transform;
         }
     }
 
@@ -40,7 +41,8 @@ public class PlayerDetector : MonoBehaviour {
         if (other.tag == "Player")
         {
             checkPlayerOnSight = false;
-            player = null;
+            isPlayerInside = false;
+            //player = null;
         }
     }
 }
