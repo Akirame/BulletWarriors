@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour {
     private float winTimer;
     public AudioClip gameMusic;
     public AudioClip bossMusic;
+    public bool gamePaused = false;
+    public GameObject pausePanelMobile;
+    public GameObject pausePanel;
 
     private void Start()
     {
@@ -67,6 +70,28 @@ public class GameManager : MonoBehaviour {
 
             WinGame();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetPause();
+        }
+    }
+
+    public void QuitGame()
+    {
+        SetPause();
+        LoaderManager.Get().LoadScene("MainMenuScene");
+    }
+
+    public void SetPause()
+    {
+        gamePaused = !gamePaused;
+#if UNITY_ANDROID
+        pausePanelMobile.SetActive(gamePaused);
+#else
+        pausePanel.SetActive(gamePaused);
+#endif
+        Time.timeScale = gamePaused ? 0 : 1;
     }
 
     public void WinGame()

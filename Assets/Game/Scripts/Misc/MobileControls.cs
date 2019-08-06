@@ -12,6 +12,7 @@ public class MobileControls : MonoBehaviour {
     public FixedButton shootButton;
     public FixedButton shootButton2;
     public FixedButton reloadButton;
+    public FixedButton pauseButton;
     public FixedButton changeWeaponButton;
     private UnityStandardAssets.Characters.FirstPerson.FirstPersonController fps;
     private WeaponBehaviour weapons;
@@ -36,6 +37,10 @@ public class MobileControls : MonoBehaviour {
         {
             fps.m_Jump = true;
         }
+        if (pauseButton.Pressed)
+        {
+            GameManager.GetInstance().SetPause();
+        }
         fps.m_MouseLook.lookAxis = touchField.TouchDist;
         weapons.buttonReload = reloadButton.Pressed;
         weapons.buttonShoot = shootButton.Pressed || shootButton2.Pressed;
@@ -47,7 +52,7 @@ public class MobileControls : MonoBehaviour {
         shootButton2.Pressed = false;
     }
 
-    internal void ActivateAllFunctions()
+    public void ActivateAllFunctions()
     {
         shootButton.gameObject.SetActive(true);
         shootButton2.gameObject.SetActive(true);

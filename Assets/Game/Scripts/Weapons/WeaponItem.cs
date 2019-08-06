@@ -10,9 +10,12 @@ public class WeaponItem : MonoBehaviour {
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        transform.position = new Vector3(transform.position.x, transform.position.y + Mathf.Sin(2 * timer) * 0.01f, transform.position.z);
-        transform.Rotate(Vector3.up, 2);
+        if (Time.timeScale>0)
+        {
+            timer += Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, transform.position.y + Mathf.Sin(2 * timer) * 0.01f, transform.position.z);
+            transform.Rotate(Vector3.up, 2);
+        }
     }
 
     public int GetIndex() {
